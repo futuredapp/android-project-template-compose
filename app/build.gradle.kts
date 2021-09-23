@@ -43,6 +43,7 @@ android.apply {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -142,13 +143,12 @@ dependencies {
     implementation(Dependencies.Support.lifecycleViewModel)
     implementation(Dependencies.Support.lifecycleRuntime)
     implementation(Dependencies.Support.activityKtx)
-    implementation(Dependencies.Support.lifecycleExtensions)
     implementation(Dependencies.Support.lifecycleCompiler)
+    coreLibraryDesugaring(Dependencies.Support.desugarLibs)
+
 
     implementation(Dependencies.Support.vectordrawable)
     implementation(Dependencies.Support.preference)
-
-    implementation(Dependencies.Accompanist.accompanistGlide)
 
     // Compose
     implementation(Dependencies.Compose.animation)
@@ -185,7 +185,6 @@ dependencies {
 
     // Other
     implementation(Dependencies.Other.timber)
-    implementation(Dependencies.Other.threetenbp)
 
     // Testing
     testImplementation(Dependencies.Test.core)

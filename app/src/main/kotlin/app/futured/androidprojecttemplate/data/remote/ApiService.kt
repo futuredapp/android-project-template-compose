@@ -1,8 +1,8 @@
 package app.futured.androidprojecttemplate.data.remote
 
+import java.time.ZonedDateTime
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import org.threeten.bp.ZonedDateTime
 import retrofit2.http.GET
 
 interface ApiService {
