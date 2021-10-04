@@ -11,9 +11,9 @@ object Versions {
     const val ktlint = "0.42.1"
 
     // kotlin
-    const val kotlin = "1.5.21"
+    const val kotlin = "1.5.30"
 
-    const val composeVersion = "1.0.2"
+    const val composeVersion = "1.0.3"
 
     // support
     const val androidx = "1.6.0"
