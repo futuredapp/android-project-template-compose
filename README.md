@@ -18,6 +18,7 @@
 - Product Flavors: mock, dev, prod
 - Build Variants: debug, enterprise, release
 - ~~Localizations: Czech, English – POEditor (add link)~~
+- [Architecture decision records](doc/adrs.md)
 
 ### Team:
 
