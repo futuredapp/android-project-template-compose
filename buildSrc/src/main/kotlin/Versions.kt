@@ -7,7 +7,7 @@ object Versions {
 
     // plugins
     const val detekt = "1.14.2"
-    const val ktlintGradle = "10.1.0"
+    const val ktlintGradle = "10.2.0"
     const val ktlint = "0.42.1"
 
     // kotlin
@@ -31,11 +31,11 @@ object Versions {
     const val hiltNavigation = "1.0.0-alpha03"
 
     // networking
-    const val okhttp = "4.9.1"
+    const val okhttp = "4.9.2"
     const val retrofit = "2.9.0"
 
     // serialization
-    const val serializationJson = "1.2.2"
+    const val serializationJson = "1.3.0"
     const val serializationConverter = "0.8.0"
 
     // other
@@ -45,11 +45,11 @@ object Versions {
     const val arkitekt = "5.0.0"
 
     // hilt
-    const val hilt = "2.38.1"
+    const val hilt = "2.39.1"
 
     // testing
-    const val testCore = "1.3.0"
-    const val testRunner = "1.2.0"
-    const val junit = "1.1.2"
-    const val mockk = "1.11.0"
+    const val testCore = "1.4.0"
+    const val testRunner = "1.4.0"
+    const val junit = "1.1.3"
+    const val mockk = "1.12.0"
 }
