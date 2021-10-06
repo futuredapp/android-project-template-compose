@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -134,7 +132,6 @@ android.apply {
 
 dependencies {
     // Kotlin
-    implementation(kotlin(Dependencies.Kotlin.stdlib, KotlinCompilerVersion.VERSION))
     implementation(platform(Dependencies.Kotlin.kotlinReflect))
 
     // Support
