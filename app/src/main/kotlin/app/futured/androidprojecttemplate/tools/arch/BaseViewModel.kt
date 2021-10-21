@@ -1,5 +1,7 @@
 package app.futured.androidprojecttemplate.tools.arch
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.futured.arkitekt.core.ViewState
@@ -26,18 +28,30 @@ abstract class BaseViewModel<VS : ViewState> : ViewModel(), CoroutineScopeOwner 
     fun sendEvent(event: Event<VS>) = viewModelScope.launch {
         eventChannel.send(event)
     }
+}
 
-    suspend inline fun observeEvents(
-        crossinline observer: Event<VS>.() -> Unit
-    ) {
-        events.collect {
+/**
+ * When [EventsEffect] enters composition, it will start observing the event flow from provided [viewModel].
+ * Each event sent from ViewModel goes through [observer] lambda which can be used to react to a specific event.
+ * Use the [onEvent] function to filter out the event you are interested in.
+ *
+ * @param viewModel ViewModel to observe.
+ * @param observer Event receiver lambda.
+ */
+@Composable
+fun <VS : ViewState, VM : BaseViewModel<VS>> EventsEffect(
+    viewModel: VM,
+    observer: suspend Event<VS>.() -> Unit
+) {
+    LaunchedEffect(viewModel) {
+        viewModel.events.collect {
             observer(it)
         }
     }
+}
 
-    inline fun <reified E : Event<VS>> Event<VS>.onEvent(action: (E) -> Unit) {
-        if (this is E) {
-            action(this)
-        }
+inline fun <reified E : Event<*>> Event<*>.onEvent(action: (E) -> Unit) {
+    if (this is E) {
+        action(this)
     }
 }

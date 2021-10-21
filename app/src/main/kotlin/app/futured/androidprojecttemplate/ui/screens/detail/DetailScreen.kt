@@ -12,12 +12,13 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavigationDestinations
+import app.futured.androidprojecttemplate.tools.arch.EventsEffect
+import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
 import app.futured.androidprojecttemplate.ui.theme.ContentPadding
@@ -27,13 +28,9 @@ fun DetailScreen(
     navigation: NavigationDestinations,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
-        with(viewModel) {
-            observeEvents {
-                onEvent<NavigateBackEvent> {
-                    navigation.popBackStack()
-                }
-            }
+    EventsEffect(viewModel) {
+        onEvent<NavigateBackEvent> {
+            navigation.popBackStack()
         }
     }
 
