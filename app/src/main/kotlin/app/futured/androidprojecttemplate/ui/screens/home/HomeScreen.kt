@@ -9,12 +9,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavigationDestinations
+import app.futured.androidprojecttemplate.tools.arch.EventsEffect
+import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
 import app.futured.androidprojecttemplate.ui.theme.ContentPadding
@@ -24,17 +25,13 @@ fun HomeScreen(
     navigation: NavigationDestinations,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
-        with(viewModel) {
-            observeEvents {
-                onEvent<NavigateToDetailEvent> {
-                    navigation.navigateToDetailScreen(
-                        title = "Demo",
-                        subtitle = "Subtitle",
-                        value = "Demo Subtitle"
-                    )
-                }
-            }
+    EventsEffect(viewModel) {
+        onEvent<NavigateToDetailEvent> {
+            navigation.navigateToDetailScreen(
+                title = "Demo",
+                subtitle = "Subtitle",
+                value = "Demo Subtitle"
+            )
         }
     }
 
