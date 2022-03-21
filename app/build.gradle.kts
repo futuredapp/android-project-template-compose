@@ -123,10 +123,10 @@ android.apply {
 
     lint {
         textReport = true // Write a text report to the console (Useful for CI logs)
-        isExplainIssues = false // HTML/XML reports are too verbose in console logs
-        isCheckDependencies = false // Required to get all unused resource from other modules (disabled to speed up linting)
-        isCheckTestSources = true // Also check test case code for lint issues
-        isCheckReleaseBuilds = false // If we run a full lint analysis as build part in CI, we can skip redundant checks
+        explainIssues = false // HTML/XML reports are too verbose in console logs
+        checkDependencies = false // Required to get all unused resource from other modules (disabled to speed up linting)
+        checkTestSources = true // Also check test case code for lint issues
+        checkReleaseBuilds = false // If we run a full lint analysis as build part in CI, we can skip redundant checks
     }
 }
 
