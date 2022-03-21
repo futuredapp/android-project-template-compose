@@ -18,6 +18,7 @@
 - Product Flavors: mock, dev, prod
 - Build Variants: debug, enterprise, release
 - ~~Localizations: Czech, English – POEditor (add link)~~
+- [Architecture decision records](doc/adrs.md)
 
 ### Team:
 
@@ -32,6 +33,12 @@
 ### ~~Test accounts~~
 
 - ~~dev - login: `a@a.com`, password: `hesloheslo`~~
+
+### Security standard
+
+This project complies with ~~Standard (F0), High (F1), Highest (F2)~~ security standard.
+
+~~[Project specific standard](www.notion.so)~~
 
 ### Additional Scripts
 

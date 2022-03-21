@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
-import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -11,6 +8,7 @@ plugins {
 
 android.apply {
     compileSdk = ProjectSettings.compileSdkVersion
+
     defaultConfig {
         applicationId = ProjectSettings.applicationId
         minSdk = ProjectSettings.minSdk
@@ -109,21 +107,21 @@ android.apply {
         }
     }
 
-    flavorDimensions(ProjectSettings.Flavor.DIMENSION)
+    flavorDimensions.add(ProjectSettings.Flavor.DIMENSION)
 
     productFlavors {
         create(ProjectSettings.Flavor.MOCK) {
-            setDimension(ProjectSettings.Flavor.DIMENSION)
+            dimension = ProjectSettings.Flavor.DIMENSION
         }
         create(ProjectSettings.Flavor.DEV) {
-            setDimension(ProjectSettings.Flavor.DIMENSION)
+            dimension = ProjectSettings.Flavor.DIMENSION
         }
         create(ProjectSettings.Flavor.PROD) {
-            setDimension(ProjectSettings.Flavor.DIMENSION)
+            dimension = ProjectSettings.Flavor.DIMENSION
         }
     }
 
-    lintOptions {
+    lint {
         textReport = true // Write a text report to the console (Useful for CI logs)
         isExplainIssues = false // HTML/XML reports are too verbose in console logs
         isCheckDependencies = false // Required to get all unused resource from other modules (disabled to speed up linting)
@@ -134,7 +132,6 @@ android.apply {
 
 dependencies {
     // Kotlin
-    implementation(kotlin(Dependencies.Kotlin.stdlib, KotlinCompilerVersion.VERSION))
     implementation(platform(Dependencies.Kotlin.kotlinReflect))
 
     // Support

@@ -10,7 +10,8 @@
         android:theme="@style/Theme.App"
         android:supportsRtl="true">
 
-        <activity android:name=".AppActivity"
+        <activity
+            android:name=".AppActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

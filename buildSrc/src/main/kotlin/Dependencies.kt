@@ -9,7 +9,6 @@ object Dependencies {
 
     object Kotlin {
         const val gradlePlugin = "gradle-plugin"
-        const val stdlib = "stdlib-jdk7"
         const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
 
@@ -75,7 +74,7 @@ object Dependencies {
     object Test {
         const val core = "androidx.test:core:${Versions.testCore}"
         const val runner = "androidx.test:runner:${Versions.testRunner}"
-        const val junit = "androidx.test.ext:junit:${Versions.junit}"
+        const val junit = "androidx.test.ext:junit-ktx:${Versions.junit}"
         const val mockk = "io.mockk:mockk:${Versions.mockk}"
     }
 }
