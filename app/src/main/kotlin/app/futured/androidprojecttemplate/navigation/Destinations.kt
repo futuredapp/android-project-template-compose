@@ -2,14 +2,14 @@ package app.futured.androidprojecttemplate.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.navArgument
+import androidx.navigation.NavType
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
-import androidx.navigation.compose.navArgument
 
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String

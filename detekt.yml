@@ -20,6 +20,7 @@ complexity:
     thresholdInObjects: 25
   LongParameterList:
     active: true
+    ignoreDefaultParameters: true
   NestedBlockDepth:
     active: true
     threshold: 4
@@ -78,9 +79,6 @@ exceptions:
   TooGenericExceptionThrown:
     active: true
 
-formatting:
-  active: false
-
 naming:
   active: true
   ClassNaming:
@@ -98,6 +96,8 @@ naming:
     active: true
   FunctionNaming:
     active: true
+    functionPattern: "([A-Za-z][a-zA-Z0-9]*)|(.)"
+    ignoreAnnotated: ["org.junit.Test"]
   FunctionParameterNaming:
     active: true
   MatchingDeclarationName:
@@ -110,6 +110,7 @@ naming:
     active: true
   TopLevelPropertyNaming:
     active: true
+    constantPattern: "[A-Z][A-Za-z0-9]*"
   VariableMaxLength:
     active: true
     maximumVariableNameLength: 50
@@ -183,6 +184,9 @@ style:
     active: true
   MagicNumber:
     active: true
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated: ["androidx.compose.ui.tooling.preview.Preview", "org.junit.Test"]
   MandatoryBracesIfStatements:
     active: true
   MayBeConst:
@@ -198,7 +202,7 @@ style:
   OptionalAbstractKeyword:
     active: true
   OptionalUnit:
-    active: true
+    active: false
   OptionalWhenBraces:
     active: true
   PreferToOverPairSyntax:
@@ -222,7 +226,7 @@ style:
     active: true
   UnnecessaryAbstractClass:
     active: true
-    excludeAnnotatedClasses: "dagger.Module,android.arch.persistence.room.Dao"
+    ignoreAnnotated: ["dagger.Module","android.arch.persistence.room.Dao"]
   UnnecessaryApply:
     active: false # wait for fix
   UnnecessaryInheritance:
@@ -237,6 +241,7 @@ style:
     active: false
   UnusedPrivateMember:
     active: true
+    ignoreAnnotated: ["Preview"]
   UseDataClass:
     active: true
   UtilityClassWithPublicConstructor:
@@ -245,4 +250,3 @@ style:
     active: true
   WildcardImport:
     active: true
-    excludeImports: 'kotlinx.android.synthetic.*'

@@ -3,6 +3,7 @@ package app.futured.androidprojecttemplate
 import ProjectSettings
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
+@Suppress("UnnecessaryAbstractClass")
 abstract class DependencyUpdates : DependencyUpdatesTask() {
 
     init {
