@@ -18,7 +18,6 @@ import app.futured.androidprojecttemplate.tools.arch.EventsEffect
 import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.theme.ContentPadding
 
 @Composable
 fun HomeScreen(
@@ -46,7 +45,9 @@ fun HomeScreen(
 object Home {
 
     interface Actions {
+
         fun navigateToDetailScreen() = Unit
+
         fun incrementCounter() = Unit
     }
 
@@ -57,6 +58,7 @@ object Home {
         actions: Actions,
         counter: Int
     ) {
+
         Scaffold(
             topBar = { TopAppBar(title = { Text(text = "HomeScreen") }) },
             floatingActionButton = {
@@ -66,12 +68,12 @@ object Home {
                     }
                 )
             }
-        ) {
+        ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(ContentPadding)
+                    .padding(contentPadding)
                     .fillMaxSize()
                     .clickable {
                         actions.navigateToDetailScreen()
@@ -89,7 +91,7 @@ fun HomeContentPreview() {
     Showcase(true) {
         Home.Content(
             Home.PreviewActions,
-            5
+            counter = 5,
         )
     }
 }

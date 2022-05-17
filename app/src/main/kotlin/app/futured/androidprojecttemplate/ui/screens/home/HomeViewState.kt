@@ -8,6 +8,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @ViewModelScoped
-class HomeViewState @Inject constructor(): ViewState {
+class HomeViewState @Inject constructor() : ViewState {
+
     var counter by mutableStateOf(0)
 }

@@ -21,7 +21,6 @@ import app.futured.androidprojecttemplate.tools.arch.EventsEffect
 import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.theme.ContentPadding
 
 @Composable
 fun DetailScreen(
@@ -76,12 +75,12 @@ object Detail {
                     }
                 )
             }
-        ) {
+        ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(ContentPadding)
+                    .padding(contentPadding)
                     .fillMaxSize()
             ) {
                 Text(text = "Detail: $counter")
@@ -96,7 +95,7 @@ fun DetailContentPreview() {
     Showcase(true) {
         Detail.Content(
             Detail.PreviewActions,
-            5
+            counter = 5,
         )
     }
 }

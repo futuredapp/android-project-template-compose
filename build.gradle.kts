@@ -45,10 +45,10 @@ subprojects {
         ignoreFailures.set(true)
         android.set(true)
         outputToConsole.set(true)
-        reporters(Action {
+        reporters {
             reporter(ReporterType.PLAIN)
             reporter(ReporterType.CHECKSTYLE)
-        })
+        }
     }
 }
 
@@ -64,8 +64,8 @@ ktlint.apply {
     ignoreFailures.set(true)
     android.set(true)
     outputToConsole.set(true)
-    reporters(Action {
+    reporters {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.CHECKSTYLE)
-    })
+    }
 }

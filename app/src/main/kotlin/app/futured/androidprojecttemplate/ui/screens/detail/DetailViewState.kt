@@ -8,7 +8,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @ViewModelScoped
-class DetailViewState @Inject constructor() : ViewState{
+class DetailViewState @Inject constructor() : ViewState {
 
     var counter by mutableStateOf(0)
 }

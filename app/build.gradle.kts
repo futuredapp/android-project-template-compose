@@ -145,7 +145,6 @@ dependencies {
     implementation(Dependencies.Support.lifecycleCompiler)
     coreLibraryDesugaring(Dependencies.Support.desugarLibs)
 
-
     implementation(Dependencies.Support.vectordrawable)
     implementation(Dependencies.Support.preference)
 
@@ -166,7 +165,7 @@ dependencies {
     implementation(Dependencies.Taste.mvvmCrInteractors)
 
     // Hilt
-    implementation(Dependencies.Hilt.hilt)
+    implementation(Dependencies.Hilt.hiltAndroid)
     kapt(Dependencies.Hilt.hiltCompiler)
 
     // NavigationComponents
