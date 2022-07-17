@@ -11,27 +11,28 @@ object Versions {
     const val ktlint = "0.42.1"
 
     // kotlin
-    const val kotlin = "1.6.21"
+    const val kotlin = "1.7.0"
 
-    const val composeVersion = "1.2.0-beta01"
+    const val composeVersion = "1.2.0-rc03"
+    const val composeCompilerVersion = "1.2.0"
 
     // support
-    const val androidx = "1.9.0-alpha03"
-    const val appcompat = "1.6.0-alpha03"
-    const val lifecycle = "2.5.0-rc01"
-    const val constraintLayout = "1.0.0"
+    const val androidx = "1.9.0-alpha05"
+    const val appcompat = "1.6.0-alpha05"
+    const val lifecycle = "2.5.0"
+    const val constraintLayout = "1.0.1"
     const val vectorDrawable = "1.2.0-beta01"
     const val preference = "1.2.0"
 
-    const val activity = "1.6.0-alpha03"
+    const val activity = "1.6.0-alpha05"
     const val desugarLibs = "1.1.5"
 
     // navigation components
-    const val navigation = "2.4.2"
+    const val navigation = "2.5.0"
     const val hiltNavigation = "1.0.0"
 
     // networking
-    const val okhttp = "4.9.3"
+    const val okhttp = "4.10.0"
     const val retrofit = "2.9.0"
 
     // serialization
