@@ -134,6 +134,10 @@ android.apply {
     }
 }
 
+kotlin {
+    jvmToolchain(11)
+}
+
 dependencies {
     // Kotlin
     implementation(platform(Dependencies.Kotlin.kotlinReflect))
