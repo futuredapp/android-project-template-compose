@@ -14,10 +14,10 @@ object Dependencies {
 
     object Compose {
         const val animation = "androidx.compose.animation:animation:${Versions.composeVersion}"
-        const val foundation = "androidx.compose.foundation:foundation:${Versions.composeVersion}"
-        const val foundation_layout = "androidx.compose.foundation:foundation-layout:${Versions.composeVersion}"
-        const val material = "androidx.compose.material:material:${Versions.composeVersion}"
-        const val material_icons_extended = "androidx.compose.material:material-icons-extended:${Versions.composeVersion}"
+        const val foundation = "androidx.compose.foundation:foundation:${Versions.composeFoundationVersion}"
+        const val foundation_layout = "androidx.compose.foundation:foundation-layout:${Versions.composeFoundationVersion}"
+        const val material = "androidx.compose.material:material:${Versions.composeMaterialVersion}"
+        const val material_icons_extended = "androidx.compose.material:material-icons-extended:${Versions.composeMaterialVersion}"
         const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:${Versions.composeVersion}"
         const val runtime = "androidx.compose.runtime:runtime:${Versions.composeVersion}"
         const val ui = "androidx.compose.ui:ui:${Versions.composeVersion}"

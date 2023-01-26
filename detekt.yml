@@ -5,7 +5,7 @@ complexity:
   active: true
   ComplexCondition:
     active: true
-  ComplexMethod:
+  CyclomaticComplexMethod:
     active: true
     threshold: 20
     ignoreSimpleWhenEntries: true
@@ -131,8 +131,6 @@ performance:
 
 potential-bugs:
   active: true
-  DuplicateCaseInWhenExpression:
-    active: true
   EqualsAlwaysReturnsTrueOrFalse:
     active: true
   EqualsWithHashCodeExist:

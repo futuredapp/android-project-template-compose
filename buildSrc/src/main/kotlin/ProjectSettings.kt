@@ -1,6 +1,6 @@
 object ProjectSettings {
     const val applicationId = "app.futured.androidprojecttemplate"
-    const val compileSdkVersion = 32
+    const val compileSdkVersion = 33
     const val targetSdk = 32
     const val minSdk = 21
     const val versionName = "1.0.0"

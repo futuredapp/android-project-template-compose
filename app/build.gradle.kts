@@ -8,6 +8,7 @@ plugins {
 
 android.apply {
     compileSdk = ProjectSettings.compileSdkVersion
+    namespace = ProjectSettings.applicationId
 
     defaultConfig {
         applicationId = ProjectSettings.applicationId

@@ -8,7 +8,6 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 buildscript {
     repositories {
         google()
-        jcenter()
     }
     dependencies {
         classpath(Dependencies.gradlePlugin)
@@ -32,7 +31,6 @@ tasks {
 allprojects {
     repositories {
         google()
-        jcenter()
         maven { setUrl("https://jitpack.io") }
         gradlePluginPortal()
     }
@@ -54,9 +52,9 @@ subprojects {
 
 detekt.apply {
     version = Versions.detekt
-    input = files(rootDir, "buildSrc/")
+    source = files(rootDir, "buildSrc/")
     config = files("$rootDir/detekt.yml")
-    failFast = false
+    allRules = false
 }
 
 ktlint.apply {
