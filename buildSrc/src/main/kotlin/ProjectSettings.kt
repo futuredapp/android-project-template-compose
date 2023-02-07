@@ -1,7 +1,7 @@
 object ProjectSettings {
     const val applicationId = "app.futured.androidprojecttemplate"
     const val compileSdkVersion = 33
-    const val targetSdk = 32
+    const val targetSdk = 33
     const val minSdk = 21
     const val versionName = "1.0.0"
     val versionCode = System.getenv("GITHUB_RUN_NUMBER")?.toInt() ?: 1

@@ -3,11 +3,11 @@
 object Versions {
 
     // gradle
-    const val androidGradlePlugin = "7.4.0"
+    const val androidGradlePlugin = "7.4.1"
 
     // plugins
     const val detekt = "1.22.0"
-    const val ktlintGradle = "11.0.0"
+    const val ktlintGradle = "11.1.0"
     const val ktlint = "0.45.2"
 
     // kotlin
@@ -27,7 +27,7 @@ object Versions {
     const val preference = "1.2.0"
 
     const val activity = "1.6.1"
-    const val desugarLibs = "2.0.0"
+    const val desugarLibs = "2.0.2"
 
     // navigation components
     const val navigation = "2.5.3"
@@ -54,5 +54,5 @@ object Versions {
     const val testCore = "1.5.0"
     const val testRunner = "1.5.2"
     const val junit = "1.1.5"
-    const val mockk = "1.13.3"
+    const val mockk = "1.13.4"
 }
