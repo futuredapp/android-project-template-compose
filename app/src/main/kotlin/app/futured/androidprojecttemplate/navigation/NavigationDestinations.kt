@@ -10,7 +10,7 @@ interface NavigationDestinations {
 /**
  * Class that triggers navigation actions on provided [navController].
  */
-class NavigationDestinationsImp(private val navController: NavController) : NavigationDestinations {
+class NavigationDestinationsImpl(private val navController: NavController) : NavigationDestinations {
 
     override fun popBackStack() {
         navController.popBackStack()

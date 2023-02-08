@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import app.futured.androidprojecttemplate.navigation.Destination
 import app.futured.androidprojecttemplate.navigation.NavigationDestinations
-import app.futured.androidprojecttemplate.navigation.NavigationDestinationsImp
+import app.futured.androidprojecttemplate.navigation.NavigationDestinationsImpl
 import app.futured.androidprojecttemplate.navigation.composable
 import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreen
 import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
@@ -15,7 +15,7 @@ import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
-    navigation: NavigationDestinations = remember { NavigationDestinationsImp(navController) }
+    navigation: NavigationDestinations = remember { NavigationDestinationsImpl(navController) }
 ) {
     NavHost(
         navController = navController,

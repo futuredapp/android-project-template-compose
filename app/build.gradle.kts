@@ -8,6 +8,7 @@ plugins {
 
 android.apply {
     compileSdk = ProjectSettings.compileSdkVersion
+    namespace = ProjectSettings.applicationId
 
     defaultConfig {
         applicationId = ProjectSettings.applicationId
@@ -30,10 +31,11 @@ android.apply {
     }
 
     packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("README.md")
+        resources.excludes += setOf(
+            "META-INF/DEPENDENCIES",
+            "META-INF/LICENSE",
+            "README.md"
+        )
     }
 
     buildFeatures {
@@ -130,6 +132,10 @@ android.apply {
         checkTestSources = true // Also check test case code for lint issues
         checkReleaseBuilds = false // If we run a full lint analysis as build part in CI, we can skip redundant checks
     }
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 dependencies {
