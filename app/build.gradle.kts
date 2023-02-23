@@ -34,7 +34,7 @@ android.apply {
         resources.excludes += setOf(
             "META-INF/DEPENDENCIES",
             "META-INF/LICENSE",
-            "README.md"
+            "README.md",
         )
     }
 

@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 @Singleton
 class Persistence @Inject constructor(
     val json: Json,
-    val sharedPreferences: SharedPreferences
+    val sharedPreferences: SharedPreferences,
 ) {
 
     inline operator fun <reified T : Any> set(key: String, value: T) =

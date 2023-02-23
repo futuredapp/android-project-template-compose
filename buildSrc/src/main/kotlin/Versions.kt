@@ -7,20 +7,20 @@ object Versions {
 
     // plugins
     const val detekt = "1.22.0"
-    const val ktlintGradle = "11.1.0"
-    const val ktlint = "0.45.2"
+    const val ktlintGradle = "11.2.0"
+    const val ktlint = "0.48.2"
 
     // kotlin
-    const val kotlin = "1.8.0"
+    const val kotlin = "1.8.10"
 
     const val composeVersion = "1.3.3"
     const val composeFoundationVersion = "1.3.1"
     const val composeMaterialVersion = "1.3.1"
-    const val composeCompilerVersion = "1.4.0"
+    const val composeCompilerVersion = "1.4.2"
 
     // support
     const val androidx = "1.9.0"
-    const val appcompat = "1.6.0"
+    const val appcompat = "1.6.1"
     const val lifecycle = "2.5.1"
     const val constraintLayout = "1.0.1"
     const val vectorDrawable = "1.2.0-beta01"

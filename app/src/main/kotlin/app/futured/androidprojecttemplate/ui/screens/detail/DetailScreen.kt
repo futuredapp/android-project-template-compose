@@ -25,7 +25,7 @@ import app.futured.androidprojecttemplate.ui.components.Showcase
 @Composable
 fun DetailScreen(
     navigation: NavigationDestinations,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
 ) {
     EventsEffect(viewModel) {
         onEvent<NavigateBackEvent> {
@@ -36,7 +36,7 @@ fun DetailScreen(
     with(viewModel.viewState) {
         Detail.Content(
             viewModel,
-            counter
+            counter,
         )
     }
 }
@@ -53,7 +53,7 @@ object Detail {
     @Composable
     fun Content(
         actions: Actions,
-        counter: Int
+        counter: Int,
     ) {
         Scaffold(
             topBar = {
@@ -65,23 +65,23 @@ object Detail {
                         ) {
                             Icon(Icons.Default.ArrowBack, "")
                         }
-                    }
+                    },
                 )
             },
             floatingActionButton = {
                 AddFloatingActionButton(
                     onClick = {
                         actions.incrementCounter()
-                    }
+                    },
                 )
-            }
+            },
         ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(contentPadding)
-                    .fillMaxSize()
+                    .fillMaxSize(),
             ) {
                 Text(text = "Detail: $counter")
             }

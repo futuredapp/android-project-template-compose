@@ -22,14 +22,14 @@ import app.futured.androidprojecttemplate.ui.components.Showcase
 @Composable
 fun HomeScreen(
     navigation: NavigationDestinations,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     EventsEffect(viewModel) {
         onEvent<NavigateToDetailEvent> {
             navigation.navigateToDetailScreen(
                 title = "Demo",
                 subtitle = "Subtitle",
-                value = "Demo Subtitle"
+                value = "Demo Subtitle",
             )
         }
     }
@@ -37,7 +37,7 @@ fun HomeScreen(
     with(viewModel.viewState) {
         Home.Content(
             viewModel,
-            counter
+            counter,
         )
     }
 }
@@ -56,18 +56,17 @@ object Home {
     @Composable
     fun Content(
         actions: Actions,
-        counter: Int
+        counter: Int,
     ) {
-
         Scaffold(
             topBar = { TopAppBar(title = { Text(text = "HomeScreen") }) },
             floatingActionButton = {
                 AddFloatingActionButton(
                     onClick = {
                         actions.incrementCounter()
-                    }
+                    },
                 )
-            }
+            },
         ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -77,7 +76,7 @@ object Home {
                     .fillMaxSize()
                     .clickable {
                         actions.navigateToDetailScreen()
-                    }
+                    },
             ) {
                 Text(text = "Home: $counter")
             }

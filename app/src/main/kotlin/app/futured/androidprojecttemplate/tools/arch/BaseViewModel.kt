@@ -41,7 +41,7 @@ abstract class BaseViewModel<VS : ViewState> : ViewModel(), CoroutineScopeOwner 
 @Composable
 fun <VS : ViewState, VM : BaseViewModel<VS>> EventsEffect(
     viewModel: VM,
-    observer: suspend Event<VS>.() -> Unit
+    observer: suspend Event<VS>.() -> Unit,
 ) {
     LaunchedEffect(viewModel) {
         viewModel.events.collect {
