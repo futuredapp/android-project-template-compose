@@ -77,4 +77,8 @@ object Dependencies {
         const val junit = "androidx.test.ext:junit-ktx:${Versions.junit}"
         const val mockk = "io.mockk:mockk:${Versions.mockk}"
     }
+
+    object Lint {
+        const val composeLint = "com.slack.lint.compose:compose-lint-checks:${Versions.composeLint}"
+    }
 }

@@ -195,4 +195,7 @@ dependencies {
     testImplementation(Dependencies.Test.runner)
     testImplementation(Dependencies.Test.junit)
     testImplementation(Dependencies.Test.mockk)
+
+    // Lint
+    lintChecks(Dependencies.Lint.composeLint)
 }

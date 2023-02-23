@@ -39,12 +39,11 @@ abstract class BaseViewModel<VS : ViewState> : ViewModel(), CoroutineScopeOwner 
  * @param observer Event receiver lambda.
  */
 @Composable
-fun <VS : ViewState, VM : BaseViewModel<VS>> EventsEffect(
-    viewModel: VM,
+fun <VS : ViewState> BaseViewModel<VS>.EventsEffect(
     observer: suspend Event<VS>.() -> Unit,
 ) {
-    LaunchedEffect(viewModel) {
-        viewModel.events.collect {
+    LaunchedEffect(this) {
+        events.collect {
             observer(it)
         }
     }
