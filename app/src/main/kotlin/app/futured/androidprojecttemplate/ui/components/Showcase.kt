@@ -9,8 +9,8 @@ import app.futured.androidprojecttemplate.ui.theme.AppTheme
  * Preview surface wrapper
  */
 @Composable
-fun Showcase(darkMode: Boolean = false, content: @Composable () -> Unit) {
-    AppTheme(darkTheme = darkMode) {
+fun Showcase(content: @Composable () -> Unit) {
+    AppTheme {
         Surface(color = MaterialTheme.colors.background) {
             content()
         }
