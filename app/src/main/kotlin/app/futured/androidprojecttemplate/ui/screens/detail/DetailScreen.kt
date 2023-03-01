@@ -18,8 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavigationDestinations
 import app.futured.androidprojecttemplate.tools.arch.EventsEffect
 import app.futured.androidprojecttemplate.tools.arch.onEvent
-import app.futured.androidprojecttemplate.tools.compose.DarkLightPreviews
-import app.futured.androidprojecttemplate.tools.compose.DeviceSizePreviews
+import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
 
@@ -90,8 +89,7 @@ object Detail {
     }
 }
 
-@DarkLightPreviews
-@DeviceSizePreviews
+@ScreenPreviews
 @Composable
 fun DetailContentPreview() {
     Showcase {

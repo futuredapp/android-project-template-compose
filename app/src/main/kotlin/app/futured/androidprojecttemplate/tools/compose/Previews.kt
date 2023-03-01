@@ -1,7 +1,6 @@
 package app.futured.androidprojecttemplate.tools.compose
 
 import android.content.res.Configuration
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 private const val PHONE_XHDPI = "spec:id=reference_phone,shape=Normal,width=618,height=1098,unit=dp,dpi=320"

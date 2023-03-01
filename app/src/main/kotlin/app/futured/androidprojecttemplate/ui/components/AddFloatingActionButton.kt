@@ -5,7 +5,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import app.futured.androidprojecttemplate.tools.compose.DarkLightPreviews
+import app.futured.androidprojecttemplate.tools.compose.ComponentPreviews
 
 @Composable
 fun AddFloatingActionButton(onClick: () -> Unit) {
@@ -14,7 +14,7 @@ fun AddFloatingActionButton(onClick: () -> Unit) {
     }
 }
 
-@DarkLightPreviews
+@ComponentPreviews
 @Composable
 fun AddFloatingActionButtonPreview() {
     Showcase {
