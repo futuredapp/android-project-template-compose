@@ -24,20 +24,20 @@ fun HomeScreen(
     navigation: NavigationDestinations,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    EventsEffect(viewModel) {
-        onEvent<NavigateToDetailEvent> {
-            navigation.navigateToDetailScreen(
-                title = "Demo",
-                subtitle = "Subtitle",
-                value = "Demo Subtitle",
-            )
+    with(viewModel) {
+        EventsEffect {
+            onEvent<NavigateToDetailEvent> {
+                navigation.navigateToDetailScreen(
+                    title = "Demo",
+                    subtitle = "Subtitle",
+                    value = "Demo Subtitle",
+                )
+            }
         }
-    }
 
-    with(viewModel.viewState) {
         Home.Content(
             viewModel,
-            counter,
+            viewState.counter,
         )
     }
 }
@@ -57,6 +57,7 @@ object Home {
     fun Content(
         actions: Actions,
         counter: Int,
+        modifier: Modifier = Modifier,
     ) {
         Scaffold(
             topBar = { TopAppBar(title = { Text(text = "HomeScreen") }) },
@@ -67,6 +68,7 @@ object Home {
                     },
                 )
             },
+            modifier = modifier,
         ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -87,7 +89,7 @@ object Home {
 @Preview
 @Composable
 fun HomeContentPreview() {
-    Showcase(true) {
+    Showcase(darkMode = true) {
         Home.Content(
             Home.PreviewActions,
             counter = 5,

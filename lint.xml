@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<lint>
+    <issue id="ComposeModifierMissing" severity="warning" />
+    <issue id="ComposeViewModelForwarding" severity="warning" />
+    <issue id="ComposeParameterOrder" severity="warning" />
+</lint>

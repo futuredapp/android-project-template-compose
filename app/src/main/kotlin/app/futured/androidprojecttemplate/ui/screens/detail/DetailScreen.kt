@@ -1,5 +1,6 @@
 package app.futured.androidprojecttemplate.ui.screens.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,16 +28,16 @@ fun DetailScreen(
     navigation: NavigationDestinations,
     viewModel: DetailViewModel = hiltViewModel(),
 ) {
-    EventsEffect(viewModel) {
-        onEvent<NavigateBackEvent> {
-            navigation.popBackStack()
+    with(viewModel) {
+        EventsEffect {
+            onEvent<NavigateBackEvent> {
+                navigation.popBackStack()
+            }
         }
-    }
 
-    with(viewModel.viewState) {
         Detail.Content(
-            viewModel,
-            counter,
+            this,
+            viewState.counter,
         )
     }
 }
@@ -50,10 +51,12 @@ object Detail {
 
     object PreviewActions : Actions
 
+    @SuppressLint("ComposeModifierMissing")
     @Composable
     fun Content(
         actions: Actions,
         counter: Int,
+        modifier: Modifier = Modifier,
     ) {
         Scaffold(
             topBar = {
@@ -75,6 +78,7 @@ object Detail {
                     },
                 )
             },
+            modifier = modifier,
         ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -92,7 +96,7 @@ object Detail {
 @Preview
 @Composable
 fun DetailContentPreview() {
-    Showcase(true) {
+    Showcase(darkMode = true) {
         Detail.Content(
             Detail.PreviewActions,
             counter = 5,

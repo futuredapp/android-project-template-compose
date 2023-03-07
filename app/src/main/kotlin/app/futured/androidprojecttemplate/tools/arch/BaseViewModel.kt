@@ -10,7 +10,6 @@ import app.futured.arkitekt.crusecases.CoroutineScopeOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -31,20 +30,18 @@ abstract class BaseViewModel<VS : ViewState> : ViewModel(), CoroutineScopeOwner 
 }
 
 /**
- * When [EventsEffect] enters composition, it will start observing the event flow from provided [viewModel].
+ * When [EventsEffect] enters composition, it will start observing the event flow from it's viewModel.
  * Each event sent from ViewModel goes through [observer] lambda which can be used to react to a specific event.
  * Use the [onEvent] function to filter out the event you are interested in.
  *
- * @param viewModel ViewModel to observe.
  * @param observer Event receiver lambda.
  */
 @Composable
-fun <VS : ViewState, VM : BaseViewModel<VS>> EventsEffect(
-    viewModel: VM,
+fun <VS : ViewState> BaseViewModel<VS>.EventsEffect(
     observer: suspend Event<VS>.() -> Unit,
 ) {
-    LaunchedEffect(viewModel) {
-        viewModel.events.collect {
+    LaunchedEffect(this) {
+        events.collect {
             observer(it)
         }
     }

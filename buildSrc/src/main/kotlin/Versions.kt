@@ -55,4 +55,7 @@ object Versions {
     const val testRunner = "1.5.2"
     const val junit = "1.1.5"
     const val mockk = "1.13.4"
+
+    // lint
+    const val composeLint = "1.0.1"
 }
