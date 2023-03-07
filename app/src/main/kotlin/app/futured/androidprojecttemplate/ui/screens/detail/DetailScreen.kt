@@ -1,5 +1,6 @@
 package app.futured.androidprojecttemplate.ui.screens.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,18 +26,18 @@ import app.futured.androidprojecttemplate.ui.components.Showcase
 @Composable
 fun DetailScreen(
     navigation: NavigationDestinations,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
 ) {
-    EventsEffect(viewModel) {
-        onEvent<NavigateBackEvent> {
-            navigation.popBackStack()
+    with(viewModel) {
+        EventsEffect {
+            onEvent<NavigateBackEvent> {
+                navigation.popBackStack()
+            }
         }
-    }
 
-    with(viewModel.viewState) {
         Detail.Content(
-            viewModel,
-            counter
+            this,
+            viewState.counter,
         )
     }
 }
@@ -50,10 +51,12 @@ object Detail {
 
     object PreviewActions : Actions
 
+    @SuppressLint("ComposeModifierMissing")
     @Composable
     fun Content(
         actions: Actions,
-        counter: Int
+        counter: Int,
+        modifier: Modifier = Modifier,
     ) {
         Scaffold(
             topBar = {
@@ -65,23 +68,24 @@ object Detail {
                         ) {
                             Icon(Icons.Default.ArrowBack, "")
                         }
-                    }
+                    },
                 )
             },
             floatingActionButton = {
                 AddFloatingActionButton(
                     onClick = {
                         actions.incrementCounter()
-                    }
+                    },
                 )
-            }
+            },
+            modifier = modifier,
         ) { contentPadding ->
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(contentPadding)
-                    .fillMaxSize()
+                    .fillMaxSize(),
             ) {
                 Text(text = "Detail: $counter")
             }

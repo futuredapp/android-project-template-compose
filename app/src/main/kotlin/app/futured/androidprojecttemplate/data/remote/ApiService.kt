@@ -13,6 +13,6 @@ interface ApiService {
     @Serializable
     data class SampleApiModel(
         val id: String,
-        @Contextual val dateTime: ZonedDateTime
+        @Contextual val dateTime: ZonedDateTime,
     )
 }
