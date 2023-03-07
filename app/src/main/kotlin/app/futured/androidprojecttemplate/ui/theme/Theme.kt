@@ -16,7 +16,7 @@ private val LightColorPalette = lightColors(
     onPrimary = pureWhite,
     onSecondary = pureWhite,
     onBackground = black900,
-    onSurface = black900
+    onSurface = black900,
 )
 
 private val DarkColorPalette = darkColors(
@@ -28,13 +28,13 @@ private val DarkColorPalette = darkColors(
     onPrimary = pureWhite,
     onSecondary = pureWhite,
     onBackground = pureWhite,
-    onSurface = pureWhite
+    onSurface = pureWhite,
 )
 
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -46,6 +46,6 @@ fun AppTheme(
         colors = colors,
         typography = typography,
         shapes = shapes,
-        content = content
+        content = content,
     )
 }

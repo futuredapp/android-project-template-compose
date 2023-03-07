@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    override val viewState: HomeViewState
+    override val viewState: HomeViewState,
 ) : BaseViewModel<HomeViewState>(), Home.Actions {
 
     override fun incrementCounter() {

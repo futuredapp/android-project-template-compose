@@ -15,11 +15,11 @@ import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
-    navigation: NavigationDestinations = remember { NavigationDestinationsImpl(navController) }
+    navigation: NavigationDestinations = remember { NavigationDestinationsImpl(navController) },
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.Home.route
+        startDestination = Destination.Home.route,
     ) {
         composable(Destination.Home) {
             HomeScreen(navigation)

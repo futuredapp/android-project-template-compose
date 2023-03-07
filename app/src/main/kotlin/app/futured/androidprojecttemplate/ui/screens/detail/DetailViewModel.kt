@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    override val viewState: DetailViewState
+    override val viewState: DetailViewState,
 ) : BaseViewModel<DetailViewState>(), Detail.Actions {
 
     override fun navigateBack() {

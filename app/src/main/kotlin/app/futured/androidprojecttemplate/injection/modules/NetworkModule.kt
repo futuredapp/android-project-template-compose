@@ -36,7 +36,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: Interceptor
+        loggingInterceptor: Interceptor,
     ): OkHttpClient = OkHttpClient
         .Builder()
         .addInterceptor(loggingInterceptor)
@@ -50,7 +50,7 @@ class NetworkModule {
     @OptIn(ExperimentalSerializationApi::class)
     fun provideRetrofitService(
         okHttpClient: OkHttpClient,
-        json: Json
+        json: Json,
     ) = Retrofit.Builder()
         .baseUrl(BASE_PROD_URL)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))

@@ -17,7 +17,7 @@ typealias DestinationArgumentValue = String
 sealed class Destination(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
-    val deepLinks: List<NavDeepLink> = emptyList()
+    val deepLinks: List<NavDeepLink> = emptyList(),
 ) {
     object Home : Destination(route = "home")
     object Detail : Destination(
@@ -33,7 +33,7 @@ sealed class Destination(
             navArgument("value") {
                 type = NavType.StringType
                 nullable = true
-            }
+            },
         ),
     ) {
         fun buildRoute(title: String, subtitle: String?, value: String?): String = route
@@ -48,12 +48,12 @@ sealed class Destination(
  */
 fun NavGraphBuilder.composable(
     destination: Destination,
-    content: @Composable (NavBackStackEntry) -> Unit
+    content: @Composable (NavBackStackEntry) -> Unit,
 ) = composable(
     route = destination.route,
     arguments = destination.arguments,
     deepLinks = destination.deepLinks,
-    content = content
+    content = content,
 )
 
 /**
@@ -62,13 +62,13 @@ fun NavGraphBuilder.composable(
 fun NavGraphBuilder.composable(
     destination: Destination,
     dialogProperties: DialogProperties = DialogProperties(),
-    content: @Composable (NavBackStackEntry) -> Unit
+    content: @Composable (NavBackStackEntry) -> Unit,
 ) = dialog(
     route = destination.route,
     arguments = destination.arguments,
     deepLinks = destination.deepLinks,
     dialogProperties = dialogProperties,
-    content = content
+    content = content,
 )
 
 /**
