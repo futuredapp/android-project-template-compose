@@ -15,11 +15,11 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavigationDestinations
 import app.futured.androidprojecttemplate.tools.arch.EventsEffect
 import app.futured.androidprojecttemplate.tools.arch.onEvent
+import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
 
@@ -93,10 +93,10 @@ object Detail {
     }
 }
 
-@Preview
+@ScreenPreviews
 @Composable
 fun DetailContentPreview() {
-    Showcase(darkMode = true) {
+    Showcase {
         Detail.Content(
             Detail.PreviewActions,
             counter = 5,

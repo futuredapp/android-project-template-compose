@@ -10,8 +10,8 @@ import app.futured.androidprojecttemplate.ui.theme.AppTheme
  * Preview surface wrapper
  */
 @Composable
-fun Showcase(modifier: Modifier = Modifier, darkMode: Boolean = false, content: @Composable () -> Unit) {
-    AppTheme(darkMode) {
+fun Showcase(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    AppTheme {
         Surface(color = MaterialTheme.colors.background, modifier = modifier) {
             content()
         }
