@@ -1,6 +1,6 @@
 package app.futured.androidprojecttemplate.tools
 
-interface Constants {
+object Constants {
 
     object Api {
         const val BASE_PROD_URL = "https://reqres.in/"

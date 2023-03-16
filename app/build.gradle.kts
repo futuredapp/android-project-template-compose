@@ -1,3 +1,5 @@
+import app.futured.androidprojecttemplate.getProperty
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -90,6 +92,10 @@ android.apply {
                 isMinifyEnabled = false
                 isShrinkResources = false
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
+
+                // Property example. Can be removed if not used. Can be used with another build types.
+                val exampleUrl = getProperty("./properties/debug.properties", "example.url")
+                buildConfigField("String", "EXAMPLE_URL", "\"${exampleUrl}\"")
             }
             create(ProjectSettings.BuildType.ENTERPRISE) {
                 isDebuggable = true
