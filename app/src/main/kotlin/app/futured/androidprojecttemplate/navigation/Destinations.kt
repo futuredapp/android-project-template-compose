@@ -1,15 +1,16 @@
 package app.futured.androidprojecttemplate.navigation
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.DialogProperties
-import androidx.navigation.navArgument
-import androidx.navigation.NavType
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.navArgument
 
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
@@ -19,8 +20,8 @@ sealed class Destination(
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
 ) {
-    object Home : Destination(route = "home")
-    object Detail : Destination(
+    data object Home : Destination(route = "home")
+    data object Detail : Destination(
         route = "detail/{title}?subtitle={subtitle}?value={value}",
         arguments = listOf(
             navArgument("title") {
@@ -48,7 +49,7 @@ sealed class Destination(
  */
 fun NavGraphBuilder.composable(
     destination: Destination,
-    content: @Composable (NavBackStackEntry) -> Unit,
+    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
 ) = composable(
     route = destination.route,
     arguments = destination.arguments,
@@ -59,7 +60,7 @@ fun NavGraphBuilder.composable(
 /**
  * Registers provided [destination] as a dialog in [NavGraphBuilder].
  */
-fun NavGraphBuilder.composable(
+fun NavGraphBuilder.composableDialog(
     destination: Destination,
     dialogProperties: DialogProperties = DialogProperties(),
     content: @Composable (NavBackStackEntry) -> Unit,

@@ -52,8 +52,8 @@ subprojects {
 
 detekt.apply {
     version = Versions.detekt
-    source = files(rootDir, "buildSrc/")
-    config = files("$rootDir/detekt.yml")
+    source.from(rootDir, "buildSrc/")
+    config.from(files("$rootDir/detekt.yml"))
     allRules = false
 }
 
