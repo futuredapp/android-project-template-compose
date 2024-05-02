@@ -12,9 +12,9 @@ open class Clean : Delete() {
 
     @TaskAction
     fun cleanProject() {
-        delete(project.rootProject.buildDir)
+        delete(project.rootProject.layout.buildDirectory)
         project.rootProject.subprojects.forEach {
-            delete(it.buildDir)
+            delete(it.layout.buildDirectory)
         }
     }
 }

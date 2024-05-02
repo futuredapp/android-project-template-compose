@@ -30,16 +30,18 @@ android.apply {
         }
     }
 
-    packagingOptions {
+    packaging {
         resources.excludes += setOf(
             "META-INF/DEPENDENCIES",
-            "META-INF/LICENSE",
+            "META-INF/LICENSE.md",
+            "META-INF/LICENSE-notice.md",
             "README.md",
         )
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -57,7 +59,7 @@ android.apply {
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     sourceSets {
@@ -191,10 +193,11 @@ dependencies {
     implementation(Dependencies.Other.timber)
 
     // Testing
-    testImplementation(Dependencies.Test.core)
-    testImplementation(Dependencies.Test.runner)
+    androidTestImplementation(Dependencies.Test.core)
+    androidTestImplementation(Dependencies.Test.runner)
+    androidTestImplementation(Dependencies.Test.junit)
+    androidTestImplementation(Dependencies.Test.mockk)
     testImplementation(Dependencies.Test.junit)
-    testImplementation(Dependencies.Test.mockk)
 
     // Lint
     lintChecks(Dependencies.Lint.composeLint)
