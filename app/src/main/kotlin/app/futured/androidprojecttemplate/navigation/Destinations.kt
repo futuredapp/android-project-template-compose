@@ -85,10 +85,6 @@ fun NavGraphBuilder.composableScreen(
     route = destination.route,
     arguments = destination.arguments,
     deepLinks = destination.deepLinks,
-//    enterTransition = Transitions.enterTransition,
-//    exitTransition = Transitions.exitTransition,
-//    popEnterTransition = Transitions.popEnterTransition,
-//    popExitTransition = Transitions.popExitTransition,
     content = content,
 )
 

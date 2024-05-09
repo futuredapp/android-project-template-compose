@@ -31,7 +31,7 @@ fun NavGraph(
     navigation: NavRouter = remember { NavRouterImpl(navController) },
 ) {
     LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher?.let {
-        navController.popBackStack()
+        navController.navigateUp()
     }
 
     ModalBottomSheetLayout(
