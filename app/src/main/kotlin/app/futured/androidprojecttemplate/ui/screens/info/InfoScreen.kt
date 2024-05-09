@@ -1,6 +1,7 @@
 package app.futured.androidprojecttemplate.ui.screens.info
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -12,6 +13,7 @@ import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.tools.extensions.bottomSheetSize
 import app.futured.androidprojecttemplate.ui.components.Showcase
+import app.futured.androidprojecttemplate.ui.theme.Grid
 
 @Composable
 fun InfoScreen(
@@ -47,6 +49,7 @@ object Info {
             modifier = modifier.bottomSheetSize(),
         ) {
             Text(
+                modifier = Modifier.padding(Grid.d4),
                 text =
                 "This is a BottomSheet, a commonly used user interface component in Android and other mobile operating systems." +
                     " It is used to display content that slides up from the bottom of the screen, providing users with additional choices and " +
