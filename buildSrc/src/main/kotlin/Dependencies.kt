@@ -40,6 +40,10 @@ object Dependencies {
         const val preference = "androidx.preference:preference-ktx:${Versions.preference}"
     }
 
+    object Accompanist {
+        const val navigationMaterial = "com.google.accompanist:accompanist-navigation-material:${Versions.accompanist}"
+    }
+
     object NavigationComponents {
         const val navigation = "androidx.navigation:navigation-compose:${Versions.navigation}"
         const val navigationHilt = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"

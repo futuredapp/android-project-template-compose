@@ -8,12 +8,15 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     override val viewState: DetailViewState,
 ) : BaseViewModel<DetailViewState>(), Detail.Actions {
-
-    override fun navigateBack() {
+    override fun onNavigateBack() {
         sendEvent(NavigateBackEvent)
     }
 
-    override fun incrementCounter() {
+    override fun onIncrementCounter() {
         viewState.counter++
+    }
+
+    override fun onNavigateToInfo() {
+        sendEvent(NavigateToInfoEvent)
     }
 }

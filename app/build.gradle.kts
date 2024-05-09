@@ -156,6 +156,9 @@ dependencies {
     implementation(Dependencies.Support.vectordrawable)
     implementation(Dependencies.Support.preference)
 
+    // Accompanist
+    implementation(Dependencies.Accompanist.navigationMaterial)
+
     // Compose
     implementation(Dependencies.Compose.animation)
     implementation(Dependencies.Compose.foundation)

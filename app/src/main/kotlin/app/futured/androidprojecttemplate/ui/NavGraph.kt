@@ -7,16 +7,24 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import app.futured.androidprojecttemplate.navigation.Destination
-import app.futured.androidprojecttemplate.navigation.NavigationDestinations
-import app.futured.androidprojecttemplate.navigation.NavigationDestinationsImpl
-import app.futured.androidprojecttemplate.navigation.composable
-import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreen
-import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
+import app.futured.androidprojecttemplate.navigation.NavRouter
+import app.futured.androidprojecttemplate.navigation.NavRouterImpl
+import app.futured.androidprojecttemplate.navigation.bottomSheetDialogs
+import app.futured.androidprojecttemplate.navigation.composableBottomSheetDialog
+import app.futured.androidprojecttemplate.navigation.composableDialog
+import app.futured.androidprojecttemplate.navigation.composableScreen
+import app.futured.androidprojecttemplate.navigation.dialogs
+import app.futured.androidprojecttemplate.navigation.screens
+import com.google.accompanist.navigation.material.BottomSheetNavigator
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun NavGraph(
-    navController: NavHostController = rememberNavController(),
-    navigation: NavigationDestinations = remember { NavigationDestinationsImpl(navController) },
+    bottomSheetNavigator: BottomSheetNavigator = rememberBottomSheetNavigator(),
+    navController: NavHostController = rememberNavController(bottomSheetNavigator),
+    navigation: NavRouter = remember { NavRouterImpl(navController) },
 ) {
     LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher?.let {
         navController.popBackStack()
@@ -26,12 +34,19 @@ fun NavGraph(
         navController = navController,
         startDestination = Destination.Home.route,
     ) {
-        composable(Destination.Home) {
-            HomeScreen(navigation)
+        // Destinations without navbar at the bottom
+        screens.forEach { destination ->
+            composableScreen(destination) { destination.destinationScreen(navigation) }
         }
 
-        composable(Destination.Detail) {
-            DetailScreen(navigation)
+        // Bottom sheet dialogs
+        bottomSheetDialogs.forEach { destination ->
+            composableBottomSheetDialog(destination) { destination.destinationScreen(navigation) }
+        }
+
+        // Dialogs
+        dialogs.forEach { destination ->
+            composableDialog(destination) { destination.destinationScreen(navigation) }
         }
     }
 }

@@ -7,8 +7,8 @@ object Versions {
 
     // plugins
     const val detekt = "1.23.6"
-    const val ktlintGradle = "12.1.0"
-    const val ktlint = "1.0.1"
+    const val ktlintGradle = "12.1.1"
+    const val ktlint = "1.2.1"
 
     // kotlin
     const val kotlin = "1.9.23"
@@ -25,6 +25,7 @@ object Versions {
     const val constraintLayout = "1.0.1"
     const val vectorDrawable = "1.2.0-beta01"
     const val preference = "1.2.1"
+    const val accompanist = "0.34.0"
 
     const val activity = "1.9.0"
     const val desugarLibs = "2.0.4"

@@ -1,6 +1,7 @@
 package app.futured.androidprojecttemplate.navigation
 
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NamedNavArgument
@@ -11,19 +12,42 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
+import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreen
+import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
+import app.futured.androidprojecttemplate.ui.screens.info.InfoScreen
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.bottomSheet
 
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
+
+internal val screens = listOf(
+    Destination.Home,
+    Destination.Detail,
+)
+
+internal val bottomSheetDialogs = listOf(
+    Destination.Info,
+)
+
+internal val dialogs = listOf<Destination>()
 
 sealed class Destination(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
+    val destinationScreen: @Composable (router: NavRouter) -> Unit,
 ) {
-    data object Home : Destination(route = "home")
+    data object Home : Destination(
+        route = "home",
+        destinationScreen = { HomeScreen(navigation = it) },
+    )
+
     data object Detail : Destination(
         route = "detail/{title}?subtitle={subtitle}?value={value}",
-        arguments = listOf(
+        destinationScreen = { DetailScreen(navigation = it) },
+        arguments =
+        listOf(
             navArgument("title") {
                 type = NavType.StringType
             },
@@ -42,18 +66,29 @@ sealed class Destination(
             .withArgument("subtitle", subtitle)
             .withArgument("value", value)
     }
+
+    data object Info : Destination(
+        route = "info",
+        destinationScreen = { InfoScreen(navigation = it) },
+    ) {
+        fun buildRoute() = route
+    }
 }
 
 /**
  * Registers provided [destination] as a composable in [NavGraphBuilder].
  */
-fun NavGraphBuilder.composable(
+fun NavGraphBuilder.composableScreen(
     destination: Destination,
-    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
 ) = composable(
     route = destination.route,
     arguments = destination.arguments,
     deepLinks = destination.deepLinks,
+//    enterTransition = Transitions.enterTransition,
+//    exitTransition = Transitions.exitTransition,
+//    popEnterTransition = Transitions.popEnterTransition,
+//    popExitTransition = Transitions.popExitTransition,
     content = content,
 )
 
@@ -69,6 +104,20 @@ fun NavGraphBuilder.composableDialog(
     arguments = destination.arguments,
     deepLinks = destination.deepLinks,
     dialogProperties = dialogProperties,
+    content = content,
+)
+
+/**
+ * Registers provided [destination] as a bottomSheet in [NavGraphBuilder].
+ */
+@OptIn(ExperimentalMaterialNavigationApi::class)
+fun NavGraphBuilder.composableBottomSheetDialog(
+    destination: Destination,
+    content: @Composable ColumnScope.(backstackEntry: NavBackStackEntry) -> Unit,
+) = bottomSheet(
+    route = destination.route,
+    arguments = destination.arguments,
+    deepLinks = destination.deepLinks,
     content = content,
 )
 

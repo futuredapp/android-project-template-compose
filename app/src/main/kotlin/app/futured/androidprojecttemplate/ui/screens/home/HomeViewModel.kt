@@ -8,12 +8,11 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     override val viewState: HomeViewState,
 ) : BaseViewModel<HomeViewState>(), Home.Actions {
-
-    override fun incrementCounter() {
+    override fun onIncrementCounter() {
         viewState.counter++
     }
 
-    override fun navigateToDetailScreen() {
+    override fun onNavigateToDetail() {
         sendEvent(NavigateToDetailEvent)
     }
 }
