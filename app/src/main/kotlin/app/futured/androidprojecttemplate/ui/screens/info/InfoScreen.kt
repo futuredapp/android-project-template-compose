@@ -18,7 +18,7 @@ import app.futured.androidprojecttemplate.ui.theme.Grid
 @Composable
 fun InfoScreen(
     navigation: NavRouter,
-    viewModel: InfoViewModel = hiltViewModel(), // createModalViewModel(),
+    viewModel: InfoViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {

@@ -41,7 +41,7 @@ import javax.inject.Inject
 @Composable
 fun TEMPLATEScreen(
     navigation: NavRouter,
-    viewModel: TEMPLATEViewModel = hiltViewModel(), // createModalViewModel(),
+    viewModel: TEMPLATEViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
