@@ -19,8 +19,6 @@ class NavRouterImpl(private val navController: NavController) : NavRouter {
     override fun navigateToDetail(title: String, subtitle: String?, value: String?) =
         Destination.Detail.buildRoute(title, subtitle, value).execute()
 
-    override fun navigateToInfo() = Destination.Info.buildRoute().execute()
-
     override fun <T> navigateBackWithResult(key: String, value: T) {
         navController.previousBackStackEntry?.savedStateHandle?.also {
             it[key] = value

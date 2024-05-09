@@ -85,8 +85,7 @@ object TEMPLATE {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {

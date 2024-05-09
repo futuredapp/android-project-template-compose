@@ -15,8 +15,4 @@ class DetailViewModel @Inject constructor(
     override fun onIncrementCounter() {
         viewState.counter++
     }
-
-    override fun onNavigateToInfo() {
-        sendEvent(NavigateToInfoEvent)
-    }
 }

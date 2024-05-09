@@ -4,13 +4,10 @@ package app.futured.androidprojecttemplate.ui.screens.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +24,6 @@ import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.theme.Grid
 
 @Composable
 fun DetailScreen(
@@ -38,9 +34,6 @@ fun DetailScreen(
         EventsEffect {
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
-            }
-            onEvent<NavigateToInfoEvent> {
-                navigation.navigateToInfo()
             }
         }
 
@@ -54,8 +47,6 @@ fun DetailScreen(
 object Detail {
     interface Actions {
         fun onNavigateBack()
-
-        fun onNavigateToInfo()
 
         fun onIncrementCounter()
     }
@@ -96,10 +87,6 @@ object Detail {
                     .padding(contentPadding),
             ) {
                 Text(text = "Detail: $counter")
-                Spacer(modifier = Modifier.height(Grid.d4))
-                Button(onClick = { actions.onNavigateToInfo() }) {
-                    Text(text = "Open bottom sheet")
-                }
             }
         }
     }
@@ -112,7 +99,6 @@ fun DetailContentPreview() {
         Detail.Content(
             actions = object : Detail.Actions {
                 override fun onNavigateBack() = Unit
-                override fun onNavigateToInfo() = Unit
                 override fun onIncrementCounter() = Unit
             },
             counter = 5,
