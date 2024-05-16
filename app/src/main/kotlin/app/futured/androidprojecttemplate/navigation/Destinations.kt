@@ -1,6 +1,7 @@
 package app.futured.androidprojecttemplate.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NamedNavArgument
@@ -11,19 +12,35 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
+import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreen
+import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
 
 typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
+
+internal val screens = listOf(
+    Destination.Home,
+    Destination.Detail,
+)
+
+internal val dialogs = listOf<Destination>()
 
 sealed class Destination(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
+    val destinationScreen: @Composable (router: NavRouter) -> Unit,
 ) {
-    data object Home : Destination(route = "home")
+    data object Home : Destination(
+        route = "home",
+        destinationScreen = { HomeScreen(navigation = it) },
+    )
+
     data object Detail : Destination(
         route = "detail/{title}?subtitle={subtitle}?value={value}",
-        arguments = listOf(
+        destinationScreen = { DetailScreen(navigation = it) },
+        arguments =
+        listOf(
             navArgument("title") {
                 type = NavType.StringType
             },
@@ -47,7 +64,7 @@ sealed class Destination(
 /**
  * Registers provided [destination] as a composable in [NavGraphBuilder].
  */
-fun NavGraphBuilder.composable(
+fun NavGraphBuilder.composableScreen(
     destination: Destination,
     content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
 ) = composable(

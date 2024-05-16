@@ -1,28 +1,29 @@
 package app.futured.androidprojecttemplate.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
     primary = orange300,
-    primaryVariant = orange100,
+    primaryContainer = orange100,
     secondary = blue400,
-    secondaryVariant = blue200,
+    secondaryContainer = blue200,
     background = cloud50,
-    surface = pureWhite,
+    surface = orange100,
     onPrimary = pureWhite,
     onSecondary = pureWhite,
     onBackground = black900,
     onSurface = black900,
 )
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
     primary = orange300,
-    primaryVariant = orange100,
+    primaryContainer = orange300,
     secondary = blue400,
+    secondaryContainer = blue200,
     background = black900,
     surface = black700,
     onPrimary = pureWhite,
@@ -43,7 +44,7 @@ fun AppTheme(
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = typography,
         shapes = shapes,
         content = content,

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package app.futured.androidprojecttemplate.ui.screens.home
 
 import androidx.compose.foundation.clickable
@@ -5,14 +7,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.futured.androidprojecttemplate.navigation.NavigationDestinations
+import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.arch.EventsEffect
 import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
@@ -21,13 +25,13 @@ import app.futured.androidprojecttemplate.ui.components.Showcase
 
 @Composable
 fun HomeScreen(
-    navigation: NavigationDestinations,
+    navigation: NavRouter,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
             onEvent<NavigateToDetailEvent> {
-                navigation.navigateToDetailScreen(
+                navigation.navigateToDetail(
                     title = "Demo",
                     subtitle = "Subtitle",
                     value = "Demo Subtitle",
@@ -44,14 +48,12 @@ fun HomeScreen(
 
 object Home {
 
+    @Stable
     interface Actions {
+        fun onNavigateToDetail()
 
-        fun navigateToDetailScreen() = Unit
-
-        fun incrementCounter() = Unit
+        fun onIncrementCounter()
     }
-
-    object PreviewActions : Actions
 
     @Composable
     fun Content(
@@ -64,7 +66,7 @@ object Home {
             floatingActionButton = {
                 AddFloatingActionButton(
                     onClick = {
-                        actions.incrementCounter()
+                        actions.onIncrementCounter()
                     },
                 )
             },
@@ -74,10 +76,10 @@ object Home {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(contentPadding)
                     .fillMaxSize()
+                    .padding(contentPadding)
                     .clickable {
-                        actions.navigateToDetailScreen()
+                        actions.onNavigateToDetail()
                     },
             ) {
                 Text(text = "Home: $counter")
@@ -91,7 +93,11 @@ object Home {
 fun HomeContentPreview() {
     Showcase {
         Home.Content(
-            Home.PreviewActions,
+            actions =
+            object : Home.Actions {
+                override fun onNavigateToDetail() = Unit
+                override fun onIncrementCounter() = Unit
+            },
             counter = 5,
         )
     }

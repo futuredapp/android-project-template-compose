@@ -6,16 +6,16 @@ object Versions {
     const val androidGradlePlugin = "8.4.0"
 
     // plugins
-    const val detekt = "1.23.6"
-    const val ktlintGradle = "12.1.0"
-    const val ktlint = "1.0.1"
+    const val detekt = "1.22.0"
+    const val ktlintGradle = "11.2.0"
+    const val ktlint = "0.48.2"
 
     // kotlin
     const val kotlin = "1.9.23"
 
     const val composeVersion = "1.6.7"
     const val composeFoundationVersion = "1.6.7"
-    const val composeMaterialVersion = "1.6.7"
+    const val composeMaterial3Version = "1.2.1"
     const val composeCompilerVersion = "1.5.13"
 
     // support
@@ -30,7 +30,7 @@ object Versions {
     const val desugarLibs = "2.0.4"
 
     // navigation components
-    const val navigation = "2.7.7"
+    const val navigation = "2.8.0-alpha08"
     const val hiltNavigation = "1.2.0"
 
     // networking
