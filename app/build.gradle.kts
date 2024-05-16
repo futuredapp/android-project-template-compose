@@ -1,5 +1,3 @@
-@file:Suppress("MagicNumber")
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -139,7 +137,7 @@ android.apply {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(JavaVersion.VERSION_17.majorVersion.toInt())
 }
 
 dependencies {
