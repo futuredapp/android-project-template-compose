@@ -1,6 +1,5 @@
 package app.futured.androidprojecttemplate.ui
 
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -19,10 +18,6 @@ fun NavGraph(
     navController: NavHostController = rememberNavController(),
     navigation: NavRouter = remember { NavRouterImpl(navController) },
 ) {
-    LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher?.let {
-        navController.navigateUp()
-    }
-
     NavHost(
         navController = navController,
         startDestination = Destination.Home.route,

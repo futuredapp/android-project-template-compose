@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
+@file:Suppress("PackageNaming")
 
 package app.futured.androidprojecttemplate.ui.screens._templateScreen
 
@@ -99,8 +100,7 @@ object TEMPLATE {
 @Composable
 fun TEMPLATEContentPreview() = Showcase {
     TEMPLATE.Content(
-        actions =
-        object : TEMPLATE.Actions {
+        actions = object : TEMPLATE.Actions {
             override fun onNavigateBack() = Unit
         },
     )

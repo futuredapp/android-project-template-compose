@@ -6,9 +6,9 @@ object Versions {
     const val androidGradlePlugin = "8.4.0"
 
     // plugins
-    const val detekt = "1.22.0"
-    const val ktlintGradle = "11.2.0"
-    const val ktlint = "0.48.2"
+    const val detekt = "1.23.6"
+    const val ktlintGradle = "12.1.1"
+    const val ktlint = "1.2.1"
 
     // kotlin
     const val kotlin = "1.9.23"
