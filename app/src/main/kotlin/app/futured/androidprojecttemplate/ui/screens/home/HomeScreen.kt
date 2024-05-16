@@ -93,8 +93,7 @@ object Home {
 fun HomeContentPreview() {
     Showcase {
         Home.Content(
-            actions =
-            object : Home.Actions {
+            actions = object : Home.Actions {
                 override fun onNavigateToDetail() = Unit
                 override fun onIncrementCounter() = Unit
             },

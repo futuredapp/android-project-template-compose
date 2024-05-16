@@ -18,7 +18,9 @@ import kotlinx.serialization.modules.SerializersModule
 class ApplicationModule {
 
     @Provides
-    fun resources(@ApplicationContext context: Context): Resources = context.resources
+    fun resources(
+        @ApplicationContext context: Context,
+    ): Resources = context.resources
 
     @Provides
     fun json(): Json = Json(from = Json.Default) {
@@ -31,6 +33,8 @@ class ApplicationModule {
     }
 
     @Provides
-    fun sharedPrefs(@ApplicationContext context: Context) =
+    fun sharedPrefs(
+        @ApplicationContext context: Context,
+    ) =
         PreferenceManager.getDefaultSharedPreferences(context)
 }

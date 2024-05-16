@@ -18,5 +18,6 @@ ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_no-empty-first-line-in-class-body = disabled
 ktlint_standard_no-blank-line-in-list = disabled
 ktlint_standard_blank-line-before-declaration = disabled
+ktlint_standard_annotation = disabled
 
 

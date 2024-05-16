@@ -1,3 +1,5 @@
+@file:Suppress("TopLevelPropertyNaming")
+
 package app.futured.androidprojecttemplate.tools.compose
 
 import android.content.res.Configuration

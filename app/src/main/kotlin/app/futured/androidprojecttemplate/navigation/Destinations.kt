@@ -1,7 +1,6 @@
 package app.futured.androidprojecttemplate.navigation
 
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NamedNavArgument
@@ -40,19 +39,19 @@ sealed class Destination(
         route = "detail/{title}?subtitle={subtitle}?value={value}",
         destinationScreen = { DetailScreen(navigation = it) },
         arguments =
-        listOf(
-            navArgument("title") {
-                type = NavType.StringType
-            },
-            navArgument("subtitle") {
-                type = NavType.StringType
-                defaultValue = "Default subtitle"
-            },
-            navArgument("value") {
-                type = NavType.StringType
-                nullable = true
-            },
-        ),
+            listOf(
+                navArgument("title") {
+                    type = NavType.StringType
+                },
+                navArgument("subtitle") {
+                    type = NavType.StringType
+                    defaultValue = "Default subtitle"
+                },
+                navArgument("value") {
+                    type = NavType.StringType
+                    nullable = true
+                },
+            ),
     ) {
         fun buildRoute(title: String, subtitle: String?, value: String?): String = route
             .withArgument("title", title)
