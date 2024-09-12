@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version Versions.kotlin
     id("dagger.hilt.android.plugin")
+    id("com.google.firebase.appdistribution")
 }
 
 android.apply {

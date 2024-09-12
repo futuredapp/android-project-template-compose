@@ -5,6 +5,9 @@ object Versions {
     // gradle
     const val androidGradlePlugin = "8.4.0"
 
+    // google services
+    const val googleServices = "4.4.2"
+
     // plugins
     const val detekt = "1.23.6"
     const val ktlintGradle = "12.1.1"
@@ -32,6 +35,9 @@ object Versions {
     // navigation components
     const val navigation = "2.8.0-alpha08"
     const val hiltNavigation = "1.2.0"
+
+    // firebase
+    const val firebaseAppDistribution = "5.0.0"
 
     // networking
     const val okhttp = "4.12.0"

@@ -9,12 +9,10 @@ jobs:
     name: Release build
     runs-on: [ubuntu-latest]
     env:
-      # TODO AppCenter application name, eg. "futured/Gastromapa"
-      APPCENTER_APP_NAME: futured/app-name
-      APPCENTER_GROUPS: Release
-      EXCLUDE_APK_FILTER: .*unaligned.apk\|.*Test.*.apk
+      EXCLUDE_AAB_FILTER: .*intermediate
       # TODO Platform-specific slack channel name for notifications, eg. "gmlh-android"
       SLACK_CHANNEL: project-slack-channel-name
+      VERSION_NAME: ${{ github.event.release.tag_name }}
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
@@ -25,28 +23,37 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-      - name: Run check and Assemble APK
-        shell: bash
-        run: ./gradlew lintCheck assembleProdRelease
       - name: Run unit tests
         shell: bash
         run: ./gradlew --continue testDevEnterpriseUnitTest
+      - name: Generate app bundle
+        shell: bash
+        env:
+          # TODO Set up `RELEASE_KEYSTORE_PASSWORD` secret for this GitHub repository
+          # TODO Set up `RELEASE_KEY_PASSWORD` secret for this GitHub repository
+          # TODO Set up `RELEASE_KEY_ALIAS` secret for this GitHub repository
+          RELEASE_KEYSTORE_PASS: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_PASS: ${{ secrets.RELEASE_KEY_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+        run: ./gradlew bundleProdRelease
       - name: Find artifacts and mapping file
         shell: bash
         run: |
-          echo ::set-output name=apk_file::$(find . -name "*.apk" | grep -v ${{env.EXCLUDE_APK_FILTER}})
-          echo ::set-output name=aab_file::$(find . -name "*.aab")
+          echo ::set-output name=aab_file::$(find . -name "*.aab" | grep -v ${{env.EXCLUDE_AAB_FILTER}})
           echo ::set-output name=mapping_file::$(find . -name mapping.txt)
         id: artifacts
-      - name: Publish to App Center
-        uses: wzieba/AppCenter-Github-Action@v1.3.2
+      - name: Upload Android Release to Play Store
+        uses: r0adkll/upload-google-play@v1
         with:
-          appName: ${{env.APPCENTER_APP_NAME}}
-          token: ${{secrets.APPCENTER_API_TOKEN}}
-          group: ${{env.APPCENTER_GROUPS}}
-          file: ${{steps.artifacts.outputs.apk_file}}
-          releaseNotes: ${{ github.event.release.body }}
-          notifyTesters: false
+          # TODO Set up `GOOGLE_PLAY_PUBLISH_SERVICE_ACCOUNT` as plaintext JSON for this GitHub repository
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_PUBLISH_SERVICE_ACCOUNT }}
+          # TODO This has to be applicationId
+          packageName: app.futured.androidprojecttemplate
+          releaseFiles: ${{ steps.artifacts.outputs.aab_file }}
+          track: internal
+          status: draft
+          whatsNewDirectory: whatsnew
+          mappingFile: ${{ steps.artifacts.outputs.mapping_file }}
       - name: Slack Notification
         if: failure()
         uses: homoluctus/slatify@master
