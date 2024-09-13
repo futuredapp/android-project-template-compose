@@ -4,6 +4,8 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization") version Versions.kotlin
     id("dagger.hilt.android.plugin")
+    // TODO enable after providing google-services.json
+    //id("com.google.gms.google-services")
     id("com.google.firebase.appdistribution")
 }
 
