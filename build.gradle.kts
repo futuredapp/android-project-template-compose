@@ -13,6 +13,8 @@ buildscript {
         classpath(Dependencies.gradlePlugin)
         classpath(kotlin(Dependencies.Kotlin.gradlePlugin, Versions.kotlin))
         classpath(Dependencies.hiltPlugin)
+        classpath(Dependencies.googleServices)
+        classpath(Dependencies.firebaseAppDistribution)
     }
 }
 

@@ -1,6 +1,8 @@
 object Dependencies {
     const val gradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val hiltPlugin =  "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val googleServices = "com.google.gms:google-services:${Versions.googleServices}"
+    const val firebaseAppDistribution = "com.google.firebase:firebase-appdistribution-gradle:${Versions.firebaseAppDistribution}"
 
     object Plugins {
         const val detekt = "io.gitlab.arturbosch.detekt"

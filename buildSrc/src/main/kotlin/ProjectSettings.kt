@@ -3,8 +3,8 @@ object ProjectSettings {
     const val compileSdkVersion = 34
     const val targetSdk = 34
     const val minSdk = 21
-    const val versionName = "1.0.0"
-    val versionCode = System.getenv("GITHUB_RUN_NUMBER")?.toInt() ?: 1
+    val versionName = System.getenv("VERSION_NAME") ?: "1.0.0"
+    val versionCode = System.getenv("BUILD_NUMBER")?.toInt() ?: 1
 
     object Flavor {
         const val DIMENSION = "api"
