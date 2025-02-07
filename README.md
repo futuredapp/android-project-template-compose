@@ -40,6 +40,10 @@ This project complies with ~~Standard (F0), High (F1), Highest (F2)~~ security s
 
 ~~[Project specific standard](www.notion.so)~~
 
+#### Charles Proxy
+
+[Charles Proxy](https://www.charlesproxy.com/documentation/welcome/) is enabled for debug and enterprise builds.
+
 ### Additional Scripts
 
 1. `clean` - remove all `build` folders
