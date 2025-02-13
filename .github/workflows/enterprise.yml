@@ -1,53 +1,28 @@
 name: Enterprise build
+
 on:
   push:
-    branches: [develop]
+    branches:
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
-  enterprise:
-    name: Enterprise build
-    runs-on: [ubuntu-latest]
-    env:
+  deploy_enterprise:
+    name: Deploy enterprise build
+    uses: futuredapp/.github/.github/workflows/android-cloud-release-firebaseAppDistribution.yml@main
+    with:
+      TEST_GRADLE_TASKS: testDevEnterpriseUnitTest
+      BUNDLE_GRADLE_TASK: bundleDevEnterprise
+      UPLOAD_GRADLE_TASK: appDistributionUploadDevEnterprise
+      SIGNING_KEYSTORE_PATH: keystore/debug.jks
       # TODO Verify app distribution groups
-      APP_DISTRIBUTION_GROUPS: futured-qa, devs
-      APP_DISTRIBUTION_ARTIFACT_TYPE: APK
-      FIREBASE_CREDENTIALS_FILE: firebase_credentials.json
-      # TODO Platform-specific slack channel name for notifications, eg. "gmlh-android"
-      SLACK_CHANNEL: project-slack-channel-name
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-      - name: Prepare environment
-        run: |
-          echo "BUILD_NUMBER=$((GITHUB_RUN_NUMBER))" >> $GITHUB_ENV
-          echo '${{ secrets.APP_DISTRIBUTION_SERVICE_ACCOUNT }}' > $FIREBASE_CREDENTIALS_FILE
-      - name: Run unit tests
-        shell: bash
-        run: ./gradlew --continue testDevEnterpriseUnitTest
-      - name: Assemble and upload to Firebase App Distribution
-        shell: bash
-        run: |
-          ./gradlew \
-            assembleDevEnterprise \
-            appDistributionUploadDevEnterprise \
-            --serviceCredentialsFile="$FIREBASE_CREDENTIALS_FILE" \
-            --artifactType="$APP_DISTRIBUTION_ARTIFACT_TYPE" \
-            --groups="$APP_DISTRIBUTION_GROUPS"
-      - name: Slack Notification
-        if: failure()
-        uses: homoluctus/slatify@master
-        with:
-          type: "failure"
-          job_name: '*Enterprise build*'
-          username: GitHub
-          channel: ${{env.SLACK_CHANNEL}}
-          url: ${{secrets.SLACK_WEB_HOOK}}
-          commit: true
-          token: ${{secrets.GITHUB_TOKEN}}
+      APP_DISTRIBUTION_GROUPS: futured-devs, futured-qa
+    secrets:
+      # TODO Set up `APP_DISTRIBUTION_SERVICE_ACCOUNT` as plaintext JSON for this GitHub repository
+      SIGNING_KEYSTORE_PASSWORD: android
+      SIGNING_KEY_ALIAS: androiddebugkey
+      SIGNING_KEY_PASSWORD: android
+      APP_DISTRIBUTION_SERVICE_ACCOUNT: ${{ secrets.APP_DISTRIBUTION_SERVICE_ACCOUNT }}

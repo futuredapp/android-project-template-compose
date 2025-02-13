@@ -3,8 +3,8 @@ object ProjectSettings {
     const val compileSdkVersion = 34
     const val targetSdk = 34
     const val minSdk = 29
-    val versionName = System.getenv("VERSION_NAME") ?: "1.0.0"
-    val versionCode = System.getenv("BUILD_NUMBER")?.toInt() ?: 1
+    val versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
+    val versionCode = System.getenv("ANDROID_BUILD_NUMBER")?.toInt() ?: 1
 
     object Flavor {
         const val DIMENSION = "api"
@@ -27,9 +27,9 @@ object ProjectSettings {
     }
 
     object Release {
-        const val KEY_ALIAS = "TBD"
-        val KEY_PASSWORD = System.getenv("KEY_PASSWORD") ?: ""
-        val STORE_PASSWORD = System.getenv("STORE_PASSWORD") ?: ""
+        val KEY_ALIAS = System.getenv("ANDROID_KEY_ALIAS") ?: ""
+        val KEY_PASSWORD = System.getenv("ANDROID_KEY_PASSWORD") ?: ""
+        val STORE_PASSWORD = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: ""
     }
 
     const val TASK_GROUP = "futured"
