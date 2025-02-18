@@ -2,7 +2,9 @@ package app.futured.androidprojecttemplate.injection.modules
 
 import android.content.Context
 import android.content.res.Resources
-import androidx.preference.PreferenceManager
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import app.futured.androidprojecttemplate.tools.extensions.dataStore
 import app.futured.androidprojecttemplate.tools.serialization.ZonedDateTimeSerializer
 import dagger.Module
 import dagger.Provides
@@ -33,8 +35,5 @@ class ApplicationModule {
     }
 
     @Provides
-    fun sharedPrefs(
-        @ApplicationContext context: Context,
-    ) =
-        PreferenceManager.getDefaultSharedPreferences(context)
+    fun dataStore(@ApplicationContext context: Context): DataStore<Preferences> = context.dataStore
 }

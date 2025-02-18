@@ -6,4 +6,8 @@ interface Constants {
         const val BASE_PROD_URL = "https://reqres.in/"
         const val TIMEOUT_IN_SECONDS = 30L
     }
+
+    object DataStore {
+        const val DEFAULT_DATASTORE_NAME = "preferences"
+    }
 }

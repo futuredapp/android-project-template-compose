@@ -27,7 +27,7 @@ object Versions {
     const val lifecycle = "2.7.0"
     const val constraintLayout = "1.0.1"
     const val vectorDrawable = "1.2.0-beta01"
-    const val preference = "1.2.1"
+    const val datastore = "1.1.2"
 
     const val activity = "1.9.0"
     const val desugarLibs = "2.0.4"

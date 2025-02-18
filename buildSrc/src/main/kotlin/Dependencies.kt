@@ -37,9 +37,10 @@ object Dependencies {
         const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
         const val desugarLibs = "com.android.tools:desugar_jdk_libs:${Versions.desugarLibs}"
 
+        const val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore}"
+
         // Questionable
         const val vectordrawable = "androidx.vectordrawable:vectordrawable:${Versions.vectorDrawable}"
-        const val preference = "androidx.preference:preference-ktx:${Versions.preference}"
     }
 
     object NavigationComponents {
