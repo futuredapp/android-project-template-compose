@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import app.futured.androidprojecttemplate.tools.extensions.dataStore
+import androidx.datastore.preferences.preferencesDataStore
+import app.futured.androidprojecttemplate.tools.Constants
 import app.futured.androidprojecttemplate.tools.serialization.ZonedDateTimeSerializer
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,9 @@ import kotlinx.serialization.modules.SerializersModule
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+        name = Constants.DataStore.DEFAULT_DATASTORE_NAME
+    )
 
     @Provides
     fun resources(
