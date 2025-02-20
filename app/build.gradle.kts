@@ -156,8 +156,9 @@ dependencies {
     implementation(Dependencies.Support.lifecycleCompiler)
     coreLibraryDesugaring(Dependencies.Support.desugarLibs)
 
+    implementation(Dependencies.Support.datastore)
+
     implementation(Dependencies.Support.vectordrawable)
-    implementation(Dependencies.Support.preference)
 
     // Compose
     implementation(Dependencies.Compose.animation)

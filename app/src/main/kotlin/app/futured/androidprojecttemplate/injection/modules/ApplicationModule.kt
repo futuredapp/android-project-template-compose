@@ -2,7 +2,10 @@ package app.futured.androidprojecttemplate.injection.modules
 
 import android.content.Context
 import android.content.res.Resources
-import androidx.preference.PreferenceManager
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import app.futured.androidprojecttemplate.tools.Constants
 import app.futured.androidprojecttemplate.tools.serialization.ZonedDateTimeSerializer
 import dagger.Module
 import dagger.Provides
@@ -16,6 +19,9 @@ import kotlinx.serialization.modules.SerializersModule
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+        name = Constants.DataStore.DEFAULT_DATASTORE_NAME
+    )
 
     @Provides
     fun resources(
@@ -33,8 +39,5 @@ class ApplicationModule {
     }
 
     @Provides
-    fun sharedPrefs(
-        @ApplicationContext context: Context,
-    ) =
-        PreferenceManager.getDefaultSharedPreferences(context)
+    fun dataStore(@ApplicationContext context: Context): DataStore<Preferences> = context.dataStore
 }
