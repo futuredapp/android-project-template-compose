@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.firebase.distribution)
 }
 
-android.apply {
+android {
     compileSdk = ProjectSettings.compileSdkVersion
     namespace = ProjectSettings.applicationId
 
@@ -58,10 +58,6 @@ android.apply {
 
     kotlinOptions.apply {
         jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
 
     sourceSets {
@@ -140,6 +136,10 @@ android.apply {
 
 kotlin {
     jvmToolchain(JavaVersion.VERSION_17.majorVersion.toInt())
+
+    compilerOptions {
+        optIn.add("kotlin.RequiresOptIn")
+    }
 }
 
 dependencies {
