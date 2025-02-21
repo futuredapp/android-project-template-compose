@@ -6,6 +6,10 @@ object ProjectSettings {
     val versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
     val versionCode = System.getenv("ANDROID_BUILD_NUMBER")?.toIntOrNull() ?: 1
 
+    object Gradle {
+        const val TaskGroup = "futured"
+    }
+
     object Flavor {
         const val DIMENSION = "api"
 

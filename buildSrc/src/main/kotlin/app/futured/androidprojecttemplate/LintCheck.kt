@@ -8,15 +8,26 @@ import org.gradle.kotlin.dsl.configure
 open class LintCheck : DefaultTask() {
 
     init {
-        group = ProjectSettings.TASK_GROUP
+        group = ProjectSettings.Gradle.TaskGroup
 
+        /*
+        These tasks runs for each module that has applied ktlint or detekt plugins.
+
+        The filtering is needed due to the fact that some gradle subprojects (such as :shared)
+        do not have any gradle configuration, nor source files -- acting as an "umbrella" module.
+        */
         configure<ExtraPropertiesExtension> {
-            dependsOn("ktlintCheck")
-            dependsOn("detekt")
-            project.subprojects.forEach {
-                dependsOn("${it.name}:ktlintCheck")
-                dependsOn("${it.name}:lintDevEnterprise")
-            }
+            project.subprojects
+                .filter { it.plugins.hasPlugin("org.jlleitschuh.gradle.ktlint") }
+                .forEach {
+                    dependsOn("${it.path}:ktlintCheck")
+                }
+
+            project.subprojects
+                .filter { it.plugins.hasPlugin("io.gitlab.arturbosch.detekt") }
+                .forEach {
+                    dependsOn("${it.path}:detekt")
+                }
         }
     }
 }
