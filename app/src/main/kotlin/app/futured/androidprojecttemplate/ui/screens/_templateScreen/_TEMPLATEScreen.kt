@@ -98,7 +98,7 @@ object TEMPLATE {
 
 @ScreenPreviews
 @Composable
-fun TEMPLATEContentPreview() = Showcase {
+private fun TEMPLATEContentPreview() = Showcase {
     TEMPLATE.Content(
         actions = object : TEMPLATE.Actions {
             override fun onNavigateBack() = Unit

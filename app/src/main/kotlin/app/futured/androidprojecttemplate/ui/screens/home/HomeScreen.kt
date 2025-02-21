@@ -90,7 +90,7 @@ object Home {
 
 @ScreenPreviews
 @Composable
-fun HomeContentPreview() {
+private fun HomeContentPreview() {
     Showcase {
         Home.Content(
             actions = object : Home.Actions {

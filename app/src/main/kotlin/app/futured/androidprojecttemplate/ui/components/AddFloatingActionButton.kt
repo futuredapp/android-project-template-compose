@@ -20,7 +20,7 @@ fun AddFloatingActionButton(
 
 @ComponentPreviews
 @Composable
-fun AddFloatingActionButtonPreview() {
+private fun AddFloatingActionButtonPreview() {
     Showcase {
         AddFloatingActionButton(onClick = {})
     }

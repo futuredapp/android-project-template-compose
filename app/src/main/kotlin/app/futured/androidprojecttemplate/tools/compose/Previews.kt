@@ -5,10 +5,6 @@ package app.futured.androidprojecttemplate.tools.compose
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview
 
-private const val PHONE_XHDPI = "spec:id=reference_phone,shape=Normal,width=618,height=1098,unit=dp,dpi=320"
-private const val PHONE_XXHDPI = "spec:id=reference_phone,shape=Normal,width=412,height=732,unit=dp,dpi=480"
-private const val PHONE_XXXHDPI = "spec:id=reference_phone,shape=Normal,width=316,height=550,unit=dp,dpi=640"
-
 @Preview(
     name = "1 - Light mode",
     group = "UI mode",
@@ -33,26 +29,26 @@ annotation class DarkLightPreviews
 )
 annotation class FontScalePreviews
 
-@Preview(device = PHONE_XHDPI, name = "7 - PHONE PIXEL XHDPI", group = "phoneScreenDensity")
+@Preview(name = "7 - PHONE PIXEL XHDPI", group = "phoneScreenDensity", device = "spec:width=1080px,height=2340px,dpi=320")
 annotation class PhoneScreenDensityXHDPIPreview
 
-@Preview(device = PHONE_XXHDPI, name = "8 - PHONE PIXEL XXHDPI", group = "phoneScreenDensity")
+@Preview(name = "8 - PHONE PIXEL XXHDPI", group = "phoneScreenDensity", device = "spec:width=1080px,height=2340px,dpi=480")
 annotation class PhoneScreenDensityXXHDPIPreview
 
-@Preview(device = PHONE_XXXHDPI, name = "9 - PHONE PIXEL XXXHDPI", group = "phoneScreenDensity")
+@Preview(name = "9 - PHONE PIXEL XXXHDPI", group = "phoneScreenDensity", device = "spec:width=1080px,height=2340px,dpi=640")
 annotation class PhoneScreenDensityXXXHDPIPreview
 
 @Preview(
-    device = PHONE_XXHDPI,
     fontScale = 1.5f,
     name = "5 - Large screen density font scale",
     group = "phoneScreenDensityFontScale",
+    device = "spec:width=1080px,height=2340px,dpi=480",
 )
 @Preview(
-    device = PHONE_XXXHDPI,
     fontScale = 2.0f,
     name = "6 - Largest screen density font scale",
     group = "phoneScreenDensityFontScale",
+    device = "spec:width=1080px,height=2340px,dpi=640",
 )
 annotation class ScreenDensityWithFontScalePreviews
 

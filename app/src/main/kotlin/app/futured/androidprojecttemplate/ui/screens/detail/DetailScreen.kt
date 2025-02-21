@@ -94,7 +94,7 @@ object Detail {
 
 @ScreenPreviews
 @Composable
-fun DetailContentPreview() {
+private fun DetailContentPreview() {
     Showcase {
         Detail.Content(
             actions = object : Detail.Actions {
