@@ -92,7 +92,6 @@ android {
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
             }
             create(ProjectSettings.BuildType.ENTERPRISE) {
-                isDebuggable = true
                 isMinifyEnabled = true
                 isShrinkResources = true
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
