@@ -6,6 +6,13 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.buildFileName = "build.gradle.kts"
 include(":app")
 includeBuild("convention-plugins")

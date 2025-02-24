@@ -1,17 +1,15 @@
 plugins {
-    // Wondering why not `alias`? https://github.com/gradle/gradle/issues/17968
-    // (this is only for plugins we already have dependency on in `buildSrc`)
-    id(libs.plugins.conventions.lint.get().pluginId)
-    id(libs.plugins.android.application.get().pluginId)
-    id(libs.plugins.kotlin.android.get().pluginId)
-    id(libs.plugins.hilt.get().pluginId)
-    id(libs.plugins.ksp.get().pluginId)
-
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.firebase.distribution)
 //     TODO enable after providing google-services.json
 //    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.distribution)
+
+    id(libs.plugins.conventions.lint.get().pluginId)
 }
 
 android {
@@ -92,7 +90,6 @@ android {
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
             }
             create(ProjectSettings.BuildType.ENTERPRISE) {
-                isDebuggable = true
                 isMinifyEnabled = true
                 isShrinkResources = true
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)

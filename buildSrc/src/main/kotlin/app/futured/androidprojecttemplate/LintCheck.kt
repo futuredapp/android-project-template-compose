@@ -11,10 +11,7 @@ open class LintCheck : DefaultTask() {
         group = ProjectSettings.Gradle.TaskGroup
 
         /*
-        These tasks runs for each module that has applied ktlint or detekt plugins.
-
-        The filtering is needed due to the fact that some gradle subprojects (such as :shared)
-        do not have any gradle configuration, nor source files -- acting as an "umbrella" module.
+        These tasks runs for each subproject that has applied ktlint or detekt plugins.
         */
         configure<ExtraPropertiesExtension> {
             project.subprojects
