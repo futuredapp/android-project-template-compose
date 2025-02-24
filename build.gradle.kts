@@ -11,11 +11,3 @@ tasks {
         output.set(rootProject.layout.buildDirectory.file("reports/detekt/merged.xml"))
     }
 }
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
