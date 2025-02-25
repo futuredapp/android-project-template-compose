@@ -1,0 +1,129 @@
+[versions]
+# https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.8.1"
+gradleVersionsPlugin = "0.50.0"
+kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29" # Must be compatible with: `kotlin`
+androidxComposeBom = "2024.12.01"
+androidxActivity = "1.7.2"
+androidxSplashScreen = "1.2.0-alpha01"
+hilt = "2.55"
+arkitekt = "5.2.2"
+timber = "5.0.1"
+testCore = "1.6.1"
+testRunner = "1.5.2"
+junit = "1.2.1"
+mockk = "1.13.8"
+serializationJson = "1.6.3"
+serializationConverter = "1.0.0"
+okhttp = "4.12.0"
+retrofit = "2.11.0"
+navigation = "2.8.5"
+hiltNavigation = "1.2.0"
+composeLint = "1.4.2"
+androidx-activity-compose = "1.9.3"
+jdkDesugaring = "2.1.4"
+androidx = "1.15.0"
+appcompat = "1.7.0"
+lifecycle = "2.8.7"
+preference = "1.2.1"
+activity = "1.9.0"
+detekt = "1.23.6"
+ktlintGradle = "12.1.2"
+ktlint = "1.2.1"
+google-servicesPlugin = "4.4.2"
+google-firebaseAppDistributionPlugin = "5.0.0"
+sheethappens = "1.0.3"
+splash-screen = "1.0.1"
+coil = "3.0.4"
+datastore = "1.1.2"
+
+[libraries]
+
+# Compose
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+
+# https://developer.android.com/studio/write/java8-support#library-desugaring-versions
+core-jdk-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "jdkDesugaring" }
+
+# Compose Lint
+compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "composeLint" }
+
+# AppCompat
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "lifecycle" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
+androidx-preferences = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-screen" }
+
+# Serialization
+serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
+serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "serializationConverter" }
+
+# MVVM
+arkitekt-usecases = { group = "app.futured.arkitekt", name = "cr-usecases", version.ref = "arkitekt" }
+
+# Other
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# Test
+test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
+test-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
+test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+test-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit" }
+
+# Networking
+okHttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+
+# Hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+# Navigation
+navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+navigation-hilt = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
+
+# Gradle Plugins used in buildSrc
+gradlePlugin-ktlint = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlintGradle" }
+gradlePlugin-detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+gradlePlugin-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradleVersionsPlugin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+firebase-distribution = { id = "com.google.firebase.appdistribution", version.ref = "google-firebaseAppDistributionPlugin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-servicesPlugin" }
+sheethappens = { id = "app.futured.sheethappens", version.ref = "sheethappens" }
+
+# Precompiled script plugins
+conventions-lint = { id = "conventions-lint" }
+
+[bundles]
+compose = [
+    "androidx-compose-foundation",
+    "androidx-compose-ui",
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-tooling-preview",
+    "androidx-compose-material3"
+]

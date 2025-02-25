@@ -1,71 +1,20 @@
-import app.futured.androidprojecttemplate.Clean
 import app.futured.androidprojecttemplate.DependencyUpdates
 import app.futured.androidprojecttemplate.LintCheck
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
-
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath(Dependencies.gradlePlugin)
-        classpath(kotlin(Dependencies.Kotlin.gradlePlugin, Versions.kotlin))
-        classpath(Dependencies.hiltPlugin)
-        classpath(Dependencies.googleServices)
-        classpath(Dependencies.firebaseAppDistribution)
-    }
-}
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 
 plugins {
-    idea
-    id(Dependencies.Plugins.detekt) version Versions.detekt
-    id(Dependencies.Plugins.ktlint) version Versions.ktlintGradle
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 tasks {
-    register<Clean>("clean")
     register<LintCheck>("lintCheck")
     register<DependencyUpdates>("dependencyUpdates")
-}
-
-allprojects {
-    repositories {
-        google()
-        maven { setUrl("https://jitpack.io") }
-        gradlePluginPortal()
-    }
-}
-
-subprojects {
-    apply(plugin = Dependencies.Plugins.ktlint)
-    ktlint.apply {
-        version.set(Versions.ktlint)
-        ignoreFailures.set(true)
-        android.set(true)
-        outputToConsole.set(true)
-        reporters {
-            reporter(ReporterType.PLAIN)
-            reporter(ReporterType.CHECKSTYLE)
-        }
-    }
-}
-
-detekt.apply {
-    version = Versions.detekt
-    source.from(rootDir, "buildSrc/")
-    config.from(files("$rootDir/detekt.yml"))
-    allRules = false
-}
-
-ktlint.apply {
-    version.set(Versions.ktlint)
-    ignoreFailures.set(true)
-    android.set(true)
-    outputToConsole.set(true)
-    reporters {
-        reporter(ReporterType.PLAIN)
-        reporter(ReporterType.CHECKSTYLE)
+    register<ReportMergeTask>("detektReportMerge") {
+        output.set(rootProject.layout.buildDirectory.file("reports/detekt/merged.xml"))
     }
 }

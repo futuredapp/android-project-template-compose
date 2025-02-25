@@ -8,15 +8,23 @@ import org.gradle.kotlin.dsl.configure
 open class LintCheck : DefaultTask() {
 
     init {
-        group = ProjectSettings.TASK_GROUP
+        group = ProjectSettings.Gradle.TaskGroup
 
+        /*
+        These tasks runs for each subproject that has applied ktlint or detekt plugins.
+        */
         configure<ExtraPropertiesExtension> {
-            dependsOn("ktlintCheck")
-            dependsOn("detekt")
-            project.subprojects.forEach {
-                dependsOn("${it.name}:ktlintCheck")
-                dependsOn("${it.name}:lintDevEnterprise")
-            }
+            project.subprojects
+                .filter { it.plugins.hasPlugin("org.jlleitschuh.gradle.ktlint") }
+                .forEach {
+                    dependsOn("${it.path}:ktlintCheck")
+                }
+
+            project.subprojects
+                .filter { it.plugins.hasPlugin("io.gitlab.arturbosch.detekt") }
+                .forEach {
+                    dependsOn("${it.path}:detekt")
+                }
         }
     }
 }

@@ -1,15 +1,18 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    kotlin("plugin.serialization") version Versions.kotlin
-    id("dagger.hilt.android.plugin")
-    // TODO enable after providing google-services.json
-    //id("com.google.gms.google-services")
-    id("com.google.firebase.appdistribution")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.firebase.distribution)
+//     TODO enable after providing google-services.json
+//    alias(libs.plugins.google.services)
+
+    id(libs.plugins.conventions.lint.get().pluginId)
 }
 
-android.apply {
+android {
     compileSdk = ProjectSettings.compileSdkVersion
     namespace = ProjectSettings.applicationId
 
@@ -19,8 +22,6 @@ android.apply {
         targetSdk = ProjectSettings.targetSdk
         versionCode = ProjectSettings.versionCode
         versionName = ProjectSettings.versionName
-
-        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -57,14 +58,6 @@ android.apply {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompilerVersion
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-    }
-
     sourceSets {
         getByName("main").java.setSrcDirs(setOf("src/main/kotlin"))
         create(ProjectSettings.Flavor.DEV).java.setSrcDirs(setOf("src/dev/kotlin"))
@@ -97,7 +90,6 @@ android.apply {
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
             }
             create(ProjectSettings.BuildType.ENTERPRISE) {
-                isDebuggable = true
                 isMinifyEnabled = true
                 isShrinkResources = true
                 signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
@@ -141,67 +133,71 @@ android.apply {
 
 kotlin {
     jvmToolchain(JavaVersion.VERSION_17.majorVersion.toInt())
+
+    compilerOptions {
+        optIn.add("kotlin.RequiresOptIn")
+    }
 }
 
 dependencies {
-    // Kotlin
-    implementation(platform(Dependencies.Kotlin.kotlinReflect))
 
     // Support
-    implementation(Dependencies.Support.appcompat)
-    implementation(Dependencies.Support.ktx)
-    implementation(Dependencies.Support.lifecycleViewModel)
-    implementation(Dependencies.Support.lifecycleRuntime)
-    implementation(Dependencies.Support.activityKtx)
-    implementation(Dependencies.Support.lifecycleCompiler)
-    coreLibraryDesugaring(Dependencies.Support.desugarLibs)
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.activity.ktx)
 
-    implementation(Dependencies.Support.datastore)
+    coreLibraryDesugaring(libs.core.jdk.desugaring)
 
-    implementation(Dependencies.Support.vectordrawable)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.splashscreen)
 
     // Compose
-    implementation(Dependencies.Compose.animation)
-    implementation(Dependencies.Compose.foundation)
-    implementation(Dependencies.Compose.foundation_layout)
-    implementation(Dependencies.Compose.material3)
-    implementation(Dependencies.Compose.runtime_livedata)
-    implementation(Dependencies.Compose.runtime)
-    implementation(Dependencies.Compose.ui)
-    implementation(Dependencies.Compose.ui_tooling)
-    implementation(Dependencies.Compose.activity)
-    implementation(Dependencies.Compose.constraintLayout)
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.runtime)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
     // MVVM
-    implementation(Dependencies.Taste.mvvmCrInteractors)
+    implementation(libs.arkitekt.usecases)
 
     // Hilt
-    implementation(Dependencies.Hilt.hiltAndroid)
-    kapt(Dependencies.Hilt.hiltCompiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     // NavigationComponents
-    implementation(Dependencies.NavigationComponents.navigation)
-    implementation(Dependencies.NavigationComponents.navigationHilt)
+    implementation(libs.navigation)
+    implementation(libs.navigation.hilt)
 
     // Networking
-    implementation(Dependencies.Networking.okHttp)
-    implementation(Dependencies.Networking.logging)
-    implementation(Dependencies.Networking.retrofit)
+    implementation(libs.okHttp)
+    implementation(libs.logging)
+    implementation(libs.retrofit)
+    implementation(libs.coil)
+    implementation(libs.coil.network)
 
     // Serialization
-    implementation(Dependencies.Serialization.serializationJson)
-    implementation(Dependencies.Serialization.converter)
+    implementation(libs.serialization.json)
+    implementation(libs.serialization.converter)
 
     // Other
-    implementation(Dependencies.Other.timber)
+    implementation(libs.timber)
 
     // Testing
-    androidTestImplementation(Dependencies.Test.core)
-    androidTestImplementation(Dependencies.Test.runner)
-    androidTestImplementation(Dependencies.Test.junit)
-    androidTestImplementation(Dependencies.Test.mockk)
-    testImplementation(Dependencies.Test.junit)
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.junit)
+    androidTestImplementation(libs.test.mockk)
+    testImplementation(libs.test.junit)
 
     // Lint
-    lintChecks(Dependencies.Lint.composeLint)
+    lintChecks(libs.compose.lint)
 }
