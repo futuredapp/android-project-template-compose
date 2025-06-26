@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -50,12 +52,8 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions.apply {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        sourceCompatibility = ProjectSettings.JavaCompatibility
+        targetCompatibility = ProjectSettings.JavaCompatibility
     }
 
     sourceSets {
@@ -132,10 +130,11 @@ android {
 }
 
 kotlin {
-    jvmToolchain(JavaVersion.VERSION_17.majorVersion.toInt())
+    jvmToolchain(ProjectSettings.JvmToolchainVersion)
 
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
+        jvmTarget = JvmTarget.fromTarget(ProjectSettings.KotlinJvmTargetNum)
     }
 }
 
@@ -181,12 +180,12 @@ dependencies {
     implementation(libs.okHttp)
     implementation(libs.logging)
     implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
     implementation(libs.coil)
     implementation(libs.coil.network)
 
     // Serialization
     implementation(libs.serialization.json)
-    implementation(libs.serialization.converter)
 
     // Other
     implementation(libs.timber)

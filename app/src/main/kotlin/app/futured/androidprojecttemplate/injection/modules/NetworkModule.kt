@@ -4,7 +4,6 @@ import app.futured.androidprojecttemplate.BuildConfig
 import app.futured.androidprojecttemplate.data.remote.ApiService
 import app.futured.androidprojecttemplate.tools.Constants.Api.BASE_PROD_URL
 import app.futured.androidprojecttemplate.tools.Constants.Api.TIMEOUT_IN_SECONDS
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton

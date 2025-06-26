@@ -1,3 +1,5 @@
+import org.gradle.api.JavaVersion
+
 object ProjectSettings {
     const val applicationId = "app.futured.androidprojecttemplate"
     const val compileSdkVersion = 35
@@ -5,6 +7,10 @@ object ProjectSettings {
     const val minSdk = 29
     val versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
     val versionCode = System.getenv("ANDROID_BUILD_NUMBER")?.toIntOrNull() ?: 1
+
+    val JavaCompatibility = JavaVersion.VERSION_17
+    val KotlinJvmTargetNum = JavaCompatibility.majorVersion
+    val JvmToolchainVersion = KotlinJvmTargetNum.toInt()
 
     object Gradle {
         const val TaskGroup = "futured"
