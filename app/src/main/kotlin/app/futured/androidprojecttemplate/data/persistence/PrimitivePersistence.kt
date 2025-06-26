@@ -13,9 +13,7 @@ import javax.inject.Singleton
  * [DataStore]-backed Persistence which allows storage and observing of persisted entities.
  */
 @Singleton
-class PrimitivePersistence @Inject constructor(
-    private val dataStore: DataStore<Preferences>,
-) {
+class PrimitivePersistence @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     suspend fun <T : Any> get(key: Preferences.Key<T>): T? = dataStore.data.firstOrNull()?.run {
         this[key]

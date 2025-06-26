@@ -38,20 +38,19 @@ sealed class Destination(
     data object Detail : Destination(
         route = "detail/{title}?subtitle={subtitle}?value={value}",
         destinationScreen = { DetailScreen(navigation = it) },
-        arguments =
-            listOf(
-                navArgument("title") {
-                    type = NavType.StringType
-                },
-                navArgument("subtitle") {
-                    type = NavType.StringType
-                    defaultValue = "Default subtitle"
-                },
-                navArgument("value") {
-                    type = NavType.StringType
-                    nullable = true
-                },
-            ),
+        arguments = listOf(
+            navArgument("title") {
+                type = NavType.StringType
+            },
+            navArgument("subtitle") {
+                type = NavType.StringType
+                defaultValue = "Default subtitle"
+            },
+            navArgument("value") {
+                type = NavType.StringType
+                nullable = true
+            },
+        ),
     ) {
         fun buildRoute(title: String, subtitle: String?, value: String?): String = route
             .withArgument("title", title)

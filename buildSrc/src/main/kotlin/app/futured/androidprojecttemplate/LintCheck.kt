@@ -25,6 +25,12 @@ open class LintCheck : DefaultTask() {
                 .forEach {
                     dependsOn("${it.path}:detekt")
                 }
+
+            project.subprojects
+                .filter { it.plugins.hasPlugin("com.android.library") || it.plugins.hasPlugin("com.android.application") }
+                .forEach {
+                    dependsOn("${it.path}:lintDevRelease")
+                }
         }
     }
 }

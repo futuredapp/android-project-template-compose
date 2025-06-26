@@ -1,5 +1,4 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
-@file:Suppress("PackageNaming")
 
 package app.futured.androidprojecttemplate.ui.screens._templateScreen
 
@@ -111,9 +110,9 @@ sealed class TEMPLATEEvent : Event<TEMPLATEViewState>()
 data object NavigateBackEvent : TEMPLATEEvent()
 
 @HiltViewModel
-class TEMPLATEViewModel @Inject constructor(
-    override val viewState: TEMPLATEViewState,
-) : BaseViewModel<TEMPLATEViewState>(), TEMPLATE.Actions {
+class TEMPLATEViewModel @Inject constructor(override val viewState: TEMPLATEViewState) :
+    BaseViewModel<TEMPLATEViewState>(),
+    TEMPLATE.Actions {
     override fun onNavigateBack() {
         sendEvent(NavigateBackEvent)
     }

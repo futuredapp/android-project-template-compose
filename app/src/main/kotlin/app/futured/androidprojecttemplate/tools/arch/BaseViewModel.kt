@@ -14,7 +14,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<VS : ViewState> : ViewModel(), CoroutineScopeOwner {
+abstract class BaseViewModel<VS : ViewState> :
+    ViewModel(),
+    CoroutineScopeOwner {
     abstract val viewState: VS
 
     override val coroutineScope: CoroutineScope = viewModelScope

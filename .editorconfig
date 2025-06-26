@@ -1,6 +1,9 @@
 [**/build/generated/**]
 ktlint = disabled
 
+[**/_template**]
+ktlint = disabled
+
 [*.{kt,kts}]
 
 max_line_length = 140
