@@ -20,7 +20,7 @@ import kotlinx.serialization.modules.SerializersModule
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        name = Constants.DataStore.DEFAULT_DATASTORE_NAME
+        name = Constants.DataStore.DEFAULT_DATASTORE_NAME,
     )
 
     @Provides

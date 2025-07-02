@@ -10,13 +10,11 @@ inline fun <reified T : Any> withNonNullValue(receiver: T?, block: (T) -> Unit) 
     if (receiver != null) block(receiver)
 }
 
-inline fun <T> safe(block: () -> T): T? {
-    return try {
-        block()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
+inline fun <T> safe(block: () -> T): T? = try {
+    block()
+} catch (e: Exception) {
+    e.printStackTrace()
+    null
 }
 
 fun <T> T?.orThrow(): T = this ?: error("UnexpectedError") // Dev error

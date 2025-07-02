@@ -18,10 +18,7 @@ import javax.inject.Singleton
  * Uses [kotlinx.serialization] to serialize and deserialize objects into Strings.
  */
 @Singleton
-class JsonPersistence @Inject constructor(
-    val dataStore: DataStore<Preferences>,
-    val json: Json,
-) {
+class JsonPersistence @Inject constructor(val dataStore: DataStore<Preferences>, val json: Json) {
 
     /**
      * Saves provided [value] in persistence under provided [key].

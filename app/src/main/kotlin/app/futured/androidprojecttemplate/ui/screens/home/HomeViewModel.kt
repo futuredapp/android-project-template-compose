@@ -5,9 +5,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    override val viewState: HomeViewState,
-) : BaseViewModel<HomeViewState>(), Home.Actions {
+class HomeViewModel @Inject constructor(override val viewState: HomeViewState) :
+    BaseViewModel<HomeViewState>(),
+    Home.Actions {
     override fun onIncrementCounter() {
         viewState.counter++
     }

@@ -11,8 +11,5 @@ interface ApiService {
     suspend fun user(): SampleApiModel
 
     @Serializable
-    data class SampleApiModel(
-        val id: String,
-        @Contextual val dateTime: ZonedDateTime,
-    )
+    data class SampleApiModel(val id: String, @Contextual val dateTime: ZonedDateTime)
 }
