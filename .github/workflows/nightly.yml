@@ -1,0 +1,52 @@
+name: Nightly build
+
+on:
+  schedule:
+    - cron: "0 0 * * 2-6" # At 00:00 on every day-of-week from Tuesday through Saturday.
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Version name'
+        required: true
+        type: string
+        default: '1.0.0'
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  generate_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version_name: ${{ steps.version.outputs.version_name }}
+    steps:
+      - name: Generate version name with timestamp
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION_NAME="${{ inputs.version_name }}"
+            echo "[DEBUG] Using manual input version name: $VERSION_NAME"
+          else
+            VERSION_NAME="nightly-${{ github.run_id }}"
+            echo "[DEBUG] Generated automatic version name: $VERSION_NAME"
+          fi
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+  android_nightly:
+    needs: generate_version
+    uses: futuredapp/.github/.github/workflows/android-cloud-nightly-build.yml@2.0.0
+    with:
+      TEST_GRADLE_TASKS: testDevEnterpriseUnitTest
+      PACKAGE_GRADLE_TASK: packageDevEnterpriseUniversalApk
+      UPLOAD_GRADLE_TASK: appDistributionUploadDevEnterprise
+      # TODO Verify app distribution groups
+      APP_DISTRIBUTION_GROUPS: futured-devs, futured-qa
+      VERSION_NAME: ${{ needs.generate_version.outputs.version_name }}
+      CHANGELOG_DEBUG: true
+      CHANGELOG_CHECKOUT_DEPTH: 100
+      CHANGELOG_FALLBACK_LOOKBACK: "2 weeks"
+    secrets:
+      # TODO Set up `APP_DISTRIBUTION_SERVICE_ACCOUNT` as plaintext JSON for this GitHub repository
+      APP_DISTRIBUTION_SERVICE_ACCOUNT: ${{ secrets.APP_DISTRIBUTION_SERVICE_ACCOUNT }}
+      # TODO Set up `GRADLE_CACHE_ENCRYPTION_KEY` for this GitHub repository
+      GRADLE_CACHE_ENCRYPTION_KEY: ${{ secrets.GRADLE_CACHE_ENCRYPTION_KEY }}
