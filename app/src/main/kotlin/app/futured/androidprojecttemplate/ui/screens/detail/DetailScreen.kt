@@ -17,13 +17,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavRouter
-import app.futured.androidprojecttemplate.tools.arch.EventsEffect
-import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
+import app.futured.arkitekt.compose.EventsEffect
+import app.futured.arkitekt.compose.onEvent
 
 @Composable
 fun DetailScreen(

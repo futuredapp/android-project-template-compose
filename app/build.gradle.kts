@@ -158,8 +158,8 @@ dependencies {
     implementation(libs.androidx.compose.material.icons)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // MVVM
-    implementation(libs.arkitekt.usecases)
+    // Arkitekt
+    implementation(libs.arkitekt.compose)
 
     // Hilt
     implementation(libs.hilt.android)

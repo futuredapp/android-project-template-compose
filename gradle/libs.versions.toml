@@ -5,7 +5,7 @@ kotlin = "2.3.0"
 ksp = "2.3.4"
 androidxComposeBom = "2026.03.00"
 hilt = "2.59.2"
-arkitekt = "5.2.2"
+arkitekt = "6.X.X-SNAPSHOT"
 timber = "5.0.1"
 testCore = "1.6.1"
 testRunner = "1.6.2"
@@ -65,8 +65,8 @@ androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", v
 # Serialization
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
 
-# MVVM
-arkitekt-usecases = { group = "app.futured.arkitekt", name = "cr-usecases", version.ref = "arkitekt" }
+# Arkitekt
+arkitekt-compose = { group = "app.futured.arkitekt", name = "compose", version.ref = "arkitekt" }
 
 # Other
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
