@@ -5,7 +5,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(override val viewState: DetailViewState) : BaseViewModel<DetailViewState>(), Detail.Actions {
+class DetailViewModel @Inject constructor(override val viewState: DetailViewState) :
+    BaseViewModel<DetailViewState>(),
+    Detail.Actions {
 
     override fun onNavigateBack() {
         sendEvent(NavigateBackEvent)

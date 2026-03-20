@@ -41,6 +41,4 @@ object ProjectSettings {
         val KEY_PASSWORD = System.getenv("ANDROID_KEY_PASSWORD") ?: ""
         val STORE_PASSWORD = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: ""
     }
-
-    const val TASK_GROUP = "futured"
 }
