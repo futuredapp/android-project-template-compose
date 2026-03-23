@@ -13,8 +13,6 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 Single-module project with the main app under `:app`. Build logic lives in `buildSrc/` and `convention-plugins/`.
 
-Package root: `app.futured.androidprojecttemplate`
-
 ## Architecture
 
 **MVVM** with [Arkitekt](https://github.com/futuredapp/arkitekt) library:
@@ -91,29 +89,12 @@ EventsEffect {
 }
 ```
 
-## Navigation
-
-Jetpack Navigation Compose with:
-- **`Destinations.kt`** - sealed class with typed route objects (support arguments, deep links)
-- **`NavRouter`** - interface abstracting navigation operations, implemented by `NavRouterImpl`
-- **`NavGraph.kt`** - registers all screens/dialogs in `NavHost`
-
-Arguments are passed as serialized Base64 strings via `SavedStateHandle`.
-
 ## Dependency Injection
 
 **Hilt** throughout:
 - `@HiltAndroidApp` on `App`, `@AndroidEntryPoint` on `AppActivity`
 - `@HiltViewModel` on ViewModels, `@ViewModelScoped` on ViewState
 - Modules: `ApplicationModule` (singletons), `NetworkModule` (Retrofit/OkHttp)
-
-## Network Layer
-
-Retrofit + OkHttp + kotlinx.serialization:
-- Base URL and constants in `Constants.kt`
-- API interface: `ApiService.kt` with suspend functions
-- Models annotated with `@Serializable`
-- `ZonedDateTimeSerializer` provided for date handling
 
 ## Build Flavors
 
