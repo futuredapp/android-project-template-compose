@@ -11,7 +11,7 @@ jobs:
     uses: futuredapp/.github/.github/workflows/android-cloud-check.yml@2.0.0
     with:
       LINT_GRADLE_TASKS: lintCheck
-      TEST_GRADLE_TASKS: testDevEnterpriseUnitTest
+      TEST_GRADLE_TASKS: testDevDebugUnitTest
     secrets:
       # TODO Set up `GRADLE_CACHE_ENCRYPTION_KEY` for this GitHub repository
       GRADLE_CACHE_ENCRYPTION_KEY: ${{ secrets.GRADLE_CACHE_ENCRYPTION_KEY }}
