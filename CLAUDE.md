@@ -34,6 +34,63 @@ object HomeScreen {
 }
 ```
 
+## Arkitekt API Reference
+
+### `BaseCoreViewModel<VS>`
+- `abstract val viewState: VS` — injected ViewState
+- `sendEvent(event: Event<VS>)` — sends a one-time event to the UI layer
+
+### `BaseViewModel<VS>` (extends `BaseCoreViewModel`, implements `CoroutineScopeOwner`)
+- Provides `coroutineScope` backed by `viewModelScope`
+- Inherits all `CoroutineScopeOwner` extension functions below
+
+### Use cases
+Always extend the Arkitekt base classes — never use plain `suspend` functions with `invoke()`:
+
+```kotlin
+// UseCase<ARGS, RESULT> — single async operation
+class SignInUseCase @Inject constructor(...) : UseCase<Unit, Unit>() {
+    override suspend fun build(args: Unit) { /* business logic */ }
+}
+
+// FlowUseCase<ARGS, T> — streaming operation
+class ObserveSomethingUseCase @Inject constructor(...) : FlowUseCase<Unit, MyModel>() {
+    override fun build(args: Unit): Flow<MyModel> = /* … */
+}
+```
+
+### `CoroutineScopeOwner` — use-case execution in ViewModels
+
+```kotlin
+// Async execution with callbacks (preferred; cancels previous by default)
+someUseCase.execute {
+    onStart   { /* show loading */ }
+    onSuccess { value -> sendEvent(MyEvent) }   // sendEvent is non-suspend, safe here
+    onError   { throwable -> /* … */ }
+}
+
+// Suspend execution — use inside launchWithHandler for error handling
+launchWithHandler {
+    val result = someUseCase.execute()   // returns Result<T>
+    result.getOrNull()                   // or getOrThrow(), getOrDefault(), fold(…)
+}
+
+// Flow use case
+someFlowUseCase.execute {
+    onStart    { }
+    onNext     { value -> }
+    onError    { throwable -> }
+    onComplete { }
+}
+```
+
+### `EventsEffect` / `onEvent`
+```kotlin
+EventsEffect {
+    onEvent<MyEvent> { /* handle */ }
+}
+```
+
 ## Navigation
 
 Jetpack Navigation Compose with:
