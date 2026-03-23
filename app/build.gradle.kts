@@ -47,18 +47,6 @@ android {
         targetCompatibility = ProjectSettings.JavaCompatibility
     }
 
-    sourceSets {
-        named("main") {
-            kotlin.directories += setOf("src/main/kotlin")
-        }
-        named("test") {
-            kotlin.directories += setOf("src/test/kotlin")
-        }
-        named("androidTest") {
-            kotlin.directories += setOf("src/androidTest/kotlin")
-        }
-    }
-
     signingConfigs {
         getByName(ProjectSettings.BuildType.DEBUG) {
             storeFile = rootProject.file("./keystore/debug.jks")
