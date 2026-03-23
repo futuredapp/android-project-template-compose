@@ -2,8 +2,8 @@ import org.gradle.api.JavaVersion
 
 object ProjectSettings {
     const val applicationId = "app.futured.androidprojecttemplate"
-    const val compileSdkVersion = 35
-    const val targetSdk = 35
+    const val compileSdkVersion = 36
+    const val targetSdk = 36
     const val minSdk = 29
     val versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
     val versionCode = System.getenv("ANDROID_BUILD_NUMBER")?.toIntOrNull() ?: 1
@@ -41,6 +41,4 @@ object ProjectSettings {
         val KEY_PASSWORD = System.getenv("ANDROID_KEY_PASSWORD") ?: ""
         val STORE_PASSWORD = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: ""
     }
-
-    const val TASK_GROUP = "futured"
 }

@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
@@ -26,14 +25,6 @@ android {
         versionName = ProjectSettings.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments.apply {
-                    put("room.schemaLocation", "$projectDir/schemas")
-                }
-            }
-        }
     }
 
     packaging {
@@ -56,15 +47,6 @@ android {
         targetCompatibility = ProjectSettings.JavaCompatibility
     }
 
-    sourceSets {
-        getByName("main").java.setSrcDirs(setOf("src/main/kotlin"))
-        create(ProjectSettings.Flavor.DEV).java.setSrcDirs(setOf("src/dev/kotlin"))
-        create(ProjectSettings.Flavor.PROD).java.setSrcDirs(setOf("src/prod/kotlin"))
-        create(ProjectSettings.Flavor.MOCK).java.setSrcDirs(setOf("src/mock/kotlin"))
-        getByName("test").java.setSrcDirs(setOf("src/test/kotlin"))
-        getByName("androidTest").java.setSrcDirs(setOf("src/androidTest/kotlin"))
-    }
-
     signingConfigs {
         getByName(ProjectSettings.BuildType.DEBUG) {
             storeFile = rootProject.file("./keystore/debug.jks")
@@ -81,26 +63,24 @@ android {
     }
 
     buildTypes {
-        buildTypes {
-            getByName(ProjectSettings.BuildType.DEBUG) {
-                isMinifyEnabled = false
-                isShrinkResources = false
-                signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
-            }
-            create(ProjectSettings.BuildType.ENTERPRISE) {
-                isMinifyEnabled = true
-                isShrinkResources = true
-                signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
-                proguardFile(getDefaultProguardFile("proguard-android.txt"))
-                proguardFile(file("proguard-rules.pro"))
-            }
-            getByName(ProjectSettings.BuildType.RELEASE) {
-                isMinifyEnabled = true
-                isShrinkResources = true
-                signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.RELEASE)
-                proguardFile(getDefaultProguardFile("proguard-android.txt"))
-                proguardFile(file("proguard-rules.pro"))
-            }
+        getByName(ProjectSettings.BuildType.DEBUG) {
+            isMinifyEnabled = false
+            isShrinkResources = false
+            signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
+        }
+        create(ProjectSettings.BuildType.ENTERPRISE) {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.DEBUG)
+            proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
+            proguardFile(file("proguard-rules.pro"))
+        }
+        getByName(ProjectSettings.BuildType.RELEASE) {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName(ProjectSettings.BuildType.RELEASE)
+            proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
+            proguardFile(file("proguard-rules.pro"))
         }
     }
 
@@ -163,10 +143,11 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material.icons)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // MVVM
-    implementation(libs.arkitekt.usecases)
+    // Arkitekt
+    implementation(libs.arkitekt.compose)
 
     // Hilt
     implementation(libs.hilt.android)

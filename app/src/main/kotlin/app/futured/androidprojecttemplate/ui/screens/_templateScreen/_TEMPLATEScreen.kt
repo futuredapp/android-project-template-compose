@@ -18,13 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavRouter
-import app.futured.androidprojecttemplate.tools.arch.BaseViewModel
-import app.futured.androidprojecttemplate.tools.arch.EventsEffect
-import app.futured.androidprojecttemplate.tools.arch.onEvent
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
+import app.futured.arkitekt.compose.BaseViewModel
+import app.futured.arkitekt.compose.EventsEffect
+import app.futured.arkitekt.compose.onEvent
 import app.futured.arkitekt.core.ViewState
 import app.futured.arkitekt.core.event.Event
 import dagger.hilt.android.lifecycle.HiltViewModel

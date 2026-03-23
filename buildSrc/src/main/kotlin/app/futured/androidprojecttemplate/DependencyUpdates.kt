@@ -2,24 +2,32 @@ package app.futured.androidprojecttemplate
 
 import ProjectSettings
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import com.github.benmanes.gradle.versions.updates.resolutionstrategy.ComponentSelectionWithCurrent
+import org.gradle.api.Action
 
 @Suppress("UnnecessaryAbstractClass")
 abstract class DependencyUpdates : DependencyUpdatesTask() {
 
     init {
-        group = ProjectSettings.TASK_GROUP
+        group = ProjectSettings.Gradle.TaskGroup
 
         this.resolutionStrategy {
             componentSelection {
-                all {
-                    val rejected = listOf("alpha", "beta", "rc", "cr", "m", "preview", "testing")
-                        .map { qualifier -> Regex("(?i).*[.-]$qualifier[.\\d-]*") }
-                        .any { it.matches(candidate.version) }
-                    if (rejected) {
-                        reject("Release candidate")
+                all(
+                    Action<ComponentSelectionWithCurrent> {
+                        if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
+                            reject("Release candidate")
+                        }
                     }
-                }
+                )
             }
         }
+    }
+
+    fun isNonStable(version: String): Boolean {
+        val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+        val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+        val isStable = stableKeyword || regex.matches(version)
+        return isStable.not()
     }
 }

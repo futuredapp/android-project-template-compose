@@ -11,7 +11,7 @@ open class LintCheck : DefaultTask() {
         group = ProjectSettings.Gradle.TaskGroup
 
         /*
-        These tasks runs for each subproject that has applied ktlint or detekt plugins.
+        These tasks run for each subproject that has applied ktlint or detekt plugins.
         */
         configure<ExtraPropertiesExtension> {
             project.subprojects
