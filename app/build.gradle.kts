@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.firebase.distribution)
 //     TODO enable after providing google-services.json
 //    alias(libs.plugins.google.services)
+    alias(libs.plugins.ktorfit)
 
     id(libs.plugins.conventions.lint.get().pluginId)
 }
@@ -25,6 +26,8 @@ android {
         versionName = ProjectSettings.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "KTOR_VERSION", "\"${libs.versions.ktor.get()}\"")
     }
 
     packaging {
@@ -118,6 +121,10 @@ kotlin {
     }
 }
 
+composeCompiler {
+    includeComposeMappingFile.set(false) // enterprise build fails without it
+}
+
 dependencies {
 
     // Support
@@ -158,10 +165,13 @@ dependencies {
     implementation(libs.navigation.hilt)
 
     // Networking
-    implementation(libs.okHttp)
-    implementation(libs.logging)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.auth)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktorfit.lib)
+    ksp(libs.ktorfit.lib)
     implementation(libs.coil)
     implementation(libs.coil.network)
 
