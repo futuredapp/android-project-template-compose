@@ -114,6 +114,7 @@ kotlin {
 
     compilerOptions {
         optIn.add("kotlin.RequiresOptIn")
+        freeCompilerArgs.add("-Xcontext-parameters")
         jvmTarget = JvmTarget.fromTarget(ProjectSettings.KotlinJvmTargetNum)
     }
 }
@@ -125,6 +126,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.runtime)
+    implementation(libs.lifecycle.viewmodel.navigation3)
     implementation(libs.activity.ktx)
 
     coreLibraryDesugaring(libs.core.jdk.desugaring)
@@ -154,7 +156,8 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     // NavigationComponents
-    implementation(libs.navigation)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
     implementation(libs.navigation.hilt)
 
     // Networking

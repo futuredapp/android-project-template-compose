@@ -2,7 +2,7 @@ danger.import_dangerfile(github: "futuredapp/danger")
 
 # Utils
 def report_checkstyle_for_directory(directory_name)
-  if Dir.exists?(directory_name)
+  if Dir.exist?(directory_name)
     Dir.entries(directory_name).select {|f| f.end_with? '.xml'}.each {|f|
       report_checkstyle(directory_name + f)
     }
@@ -25,7 +25,7 @@ def report_android_lint(file_name)
 end
 
 def report_unit_tests_for_directory(directory_name)
-  if Dir.exists?(directory_name)
+  if Dir.exist?(directory_name)
     Dir.entries(directory_name).select {|f| f.end_with? '.xml'}.each {|f|
 	  report_unit_tests(directory_name + f)
     }

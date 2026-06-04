@@ -1,54 +1,35 @@
 package app.futured.androidprojecttemplate.navigation
 
-import androidx.navigation.NavController
-import app.futured.androidprojecttemplate.tools.extensions.subscribeForResult
-import timber.log.Timber
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 
 /**
- * Class that triggers navigation actions on provided [navController].
+ * Class that triggers navigation actions on the provided [backStack].
  */
-class NavRouterImpl(private val navController: NavController) : NavRouter {
+class NavRouterImpl(private val backStack: NavBackStack<NavKey>, private val resultStore: ResultStore) : NavRouter {
+
     override fun popBackStack() {
-        navController.navigateUp()
+        backStack.removeLastOrNull()
     }
 
-    override fun navigateBack(popUpToDestination: Destination, inclusive: Boolean) {
-        navController.popBackStack(route = popUpToDestination.route, inclusive = inclusive)
+    override fun navigateBack(popUpToDestination: MainRoute, inclusive: Boolean) {
+        backStack.removeLastOrNull()
     }
 
-    override fun navigateToDetail(title: String, subtitle: String?, value: String?) =
-        Destination.Detail.buildRoute(title, subtitle, value).execute()
-
-    override fun <T> navigateBackWithResult(key: String, value: T) {
-        navController.previousBackStackEntry?.savedStateHandle?.also {
-            it[key] = value
-            navController.popBackStack()
-        }
+    override fun navigateToHome() {
+        backStack.add(MainRoute.Home)
     }
 
-    override fun <T> setCurrentResult(key: String, value: T) {
-        navController.currentBackStackEntry?.savedStateHandle?.also {
-            it[key] = value
-        }
+    override fun navigateToDetail(title: String, subtitle: String?, value: String?) {
+        backStack.add(MainRoute.Detail(title = title, subtitle = subtitle, value = value))
     }
 
-    override fun <T> subscribeForResult(key: String, callback: (T) -> Unit) {
-        navController.currentBackStackEntry?.savedStateHandle?.subscribeForResult<T>(key) { callback(it) }
+    override fun <T : Any> navigateBackWithResult(key: String, value: T) {
+        resultStore.put(key, value)
+        backStack.removeLastOrNull()
     }
 
-    private fun String.execute(
-        popUpToDestinationRoute: String? = null,
-        isInclusive: Boolean = true,
-    ) {
-        Timber.d("## Navigate to $this, popupTo $popUpToDestinationRoute, inclusive $isInclusive")
-        if (popUpToDestinationRoute != null) {
-            navController.navigate(this) {
-                popUpTo(popUpToDestinationRoute) {
-                    inclusive = isInclusive
-                }
-            }
-        } else {
-            navController.navigate(this)
-        }
+    override fun <T : Any> setCurrentResult(key: String, value: T) {
+        resultStore.put(key, value)
     }
 }

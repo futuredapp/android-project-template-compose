@@ -1,101 +1,15 @@
 package app.futured.androidprojecttemplate.navigation
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.window.DialogProperties
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDeepLink
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.navArgument
-import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreen
-import app.futured.androidprojecttemplate.ui.screens.home.HomeScreen
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
 
-typealias DestinationArgumentKey = String
-typealias DestinationArgumentValue = String
+sealed interface MainRoute : NavKey {
+    @Serializable
+    data object Login : MainRoute
 
-internal val screens = listOf(
-    Destination.Home,
-    Destination.Detail,
-)
+    @Serializable
+    data object Home : MainRoute
 
-internal val dialogs = listOf<Destination>()
-
-sealed class Destination(
-    val route: String,
-    val arguments: List<NamedNavArgument> = emptyList(),
-    val deepLinks: List<NavDeepLink> = emptyList(),
-    val destinationScreen: @Composable (router: NavRouter) -> Unit,
-) {
-    data object Home : Destination(
-        route = "home",
-        destinationScreen = { HomeScreen(navigation = it) },
-    )
-
-    data object Detail : Destination(
-        route = "detail/{title}?subtitle={subtitle}?value={value}",
-        destinationScreen = { DetailScreen(navigation = it) },
-        arguments = listOf(
-            navArgument("title") {
-                type = NavType.StringType
-            },
-            navArgument("subtitle") {
-                type = NavType.StringType
-                defaultValue = "Default subtitle"
-            },
-            navArgument("value") {
-                type = NavType.StringType
-                nullable = true
-            },
-        ),
-    ) {
-        fun buildRoute(title: String, subtitle: String?, value: String?): String = route
-            .withArgument("title", title)
-            .withArgument("subtitle", subtitle)
-            .withArgument("value", value)
-    }
+    @Serializable
+    data class Detail(val title: String, val subtitle: String? = null, val value: String? = null) : MainRoute
 }
-
-/**
- * Registers provided [destination] as a composable in [NavGraphBuilder].
- */
-fun NavGraphBuilder.composableScreen(
-    destination: Destination,
-    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
-) = composable(
-    route = destination.route,
-    arguments = destination.arguments,
-    deepLinks = destination.deepLinks,
-    content = content,
-)
-
-/**
- * Registers provided [destination] as a dialog in [NavGraphBuilder].
- */
-fun NavGraphBuilder.composableDialog(
-    destination: Destination,
-    dialogProperties: DialogProperties = DialogProperties(),
-    content: @Composable (NavBackStackEntry) -> Unit,
-) = dialog(
-    route = destination.route,
-    arguments = destination.arguments,
-    deepLinks = destination.deepLinks,
-    dialogProperties = dialogProperties,
-    content = content,
-)
-
-/**
- * Replaces an argument placeholder defined by [key] in
- * route string with value provided in [argument].
- *
- * Example:
- * Route: "emptyScreen/{title}"
- * key: "title"
- * argument: "Hello"
- * Result: "emptyScreen/Hello"
- */
-fun String.withArgument(key: DestinationArgumentKey, argument: DestinationArgumentValue?) =
-    argument?.let { replace("{$key}", it) } ?: this
