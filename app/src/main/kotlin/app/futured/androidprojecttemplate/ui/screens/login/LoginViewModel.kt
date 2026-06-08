@@ -15,7 +15,7 @@ class LoginViewModel @Inject constructor(
 
     override fun onSignIn() {
         setUserLoggedInUseCase.execute(SetUserLoggedInUseCase.Args(isLoggedIn = true)) {
-            onSuccess { sendEvent(NavigateToHomeEvent) }
+            onSuccess { sendEvent(NavigateToFirstEvent) }
         }
     }
 }

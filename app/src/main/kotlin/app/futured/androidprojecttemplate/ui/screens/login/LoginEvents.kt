@@ -4,4 +4,4 @@ import app.futured.arkitekt.core.event.Event
 
 sealed class LoginEvents : Event<LoginViewState>()
 
-data object NavigateToHomeEvent : LoginEvents()
+data object NavigateToFirstEvent : LoginEvents()

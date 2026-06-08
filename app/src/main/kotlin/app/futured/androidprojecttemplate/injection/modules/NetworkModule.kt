@@ -1,7 +1,7 @@
 package app.futured.androidprojecttemplate.injection.modules
 
-import app.futured.androidprojecttemplate.data.remote.ApiService
-import app.futured.androidprojecttemplate.data.remote.createApiService
+import app.futured.androidprojecttemplate.data.remote.StarWarsApi
+import app.futured.androidprojecttemplate.data.remote.createStarWarsApi
 import app.futured.androidprojecttemplate.data.remote.plugins.ContentNegotiationPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.HttpTimeoutPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.LoggingPlugin
@@ -55,5 +55,5 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(ktorfit: Ktorfit): ApiService = ktorfit.createApiService()
+    fun provideStarWarsApi(ktorfit: Ktorfit): StarWarsApi = ktorfit.createStarWarsApi()
 }

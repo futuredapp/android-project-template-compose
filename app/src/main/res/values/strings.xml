@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">Android Project Template</string>
+    <string name="app_name">Futured Compose Template</string>
+
+    <!-- Login -->
+    <string name="login_welcome">Welcome to the sample app!</string>
+    <string name="login_sign_in">Sign In</string>
+
+    <!-- Bottom navigation -->
+    <string name="tab_home">Home</string>
+    <string name="tab_profile">Profile</string>
+
+    <!-- First screen -->
+    <string name="first_title">First screen</string>
+    <string name="first_created_at">Created at: %1$s</string>
+    <string name="first_counter">Counter: %1$s</string>
+    <string name="first_counter_alert">Counter reached %1$s 🎉</string>
+    <string name="first_random_person">Random Star Wars character:\n%1$s</string>
+    <string name="first_continue">Continue</string>
+
+    <!-- Second screen -->
+    <string name="second_title">Second screen</string>
+    <string name="second_pick_fruit">Pick a fruit</string>
+    <string name="second_pick_veggie">Pick a veggie</string>
+
+    <!-- Third screen -->
+    <string name="third_title">Third screen</string>
+    <string name="third_selected_item">Screen argument: %1$s</string>
+
+    <!-- Profile screen -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_sign_out">Sign Out</string>
+
+    <!-- Picker -->
+    <string name="picker_title">Pick an item!</string>
+    <string name="veggie_carrot">🥕 Carrot</string>
+    <string name="veggie_pepper">🫑 Pepper</string>
+    <string name="veggie_onion">🧅 Onion</string>
+    <string name="veggie_chilli">🌶 Chilli</string>
+    <string name="fruit_apple">🍎 Apple</string>
+    <string name="fruit_banana">🍌 Banana</string>
+    <string name="fruit_orange">🍊 Orange</string>
 </resources>
