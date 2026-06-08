@@ -1,19 +1,32 @@
 package app.futured.androidprojecttemplate.ui.screens.detail
 
 import app.futured.arkitekt.compose.BaseViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(override val viewState: DetailViewState) :
+@HiltViewModel(assistedFactory = DetailViewModel.Factory::class)
+class DetailViewModel @AssistedInject constructor(@Assisted val args: DetailScreenArgs, override val viewState: DetailViewState) :
     BaseViewModel<DetailViewState>(),
     Detail.Actions {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(args: DetailScreenArgs): DetailViewModel
+    }
+
+    init {
+        initDetail()
+    }
 
     override fun onNavigateBack() {
         sendEvent(NavigateBackEvent)
     }
 
-    override fun onIncrementCounter() {
-        viewState.counter++
+    private fun initDetail() = with(viewState) {
+        title = args.title
+        subtitle = args.subtitle
+        value = args.value
     }
 }

@@ -4,31 +4,38 @@ package app.futured.androidprojecttemplate.ui.screens.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
-import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
+import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
 
 @Composable
 fun DetailScreen(
+    args: DetailScreenArgs,
     navigation: NavRouter,
-    viewModel: DetailViewModel = hiltViewModel(),
+    viewModel: DetailViewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
+        creationCallback = { factory -> factory.create(args) },
+    ),
 ) {
     with(viewModel) {
         EventsEffect {
@@ -38,23 +45,23 @@ fun DetailScreen(
         }
 
         Detail.Content(
+            viewState,
             this,
-            viewState.counter,
         )
     }
 }
 
 object Detail {
+
+    @Stable
     interface Actions {
         fun onNavigateBack()
-
-        fun onIncrementCounter()
     }
 
     @Composable
     fun Content(
+        viewState: DetailViewState,
         actions: Actions,
-        counter: Int,
         modifier: Modifier = Modifier,
     ) {
         Scaffold(
@@ -70,13 +77,6 @@ object Detail {
                     },
                 )
             },
-            floatingActionButton = {
-                AddFloatingActionButton(
-                    onClick = {
-                        actions.onIncrementCounter()
-                    },
-                )
-            },
             modifier = modifier,
         ) { contentPadding ->
             Column(
@@ -86,7 +86,11 @@ object Detail {
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {
-                Text(text = "Detail: $counter")
+                Text(viewState.title, style = MaterialTheme.typography.displaySmall)
+                Spacer(Modifier.height(Grid.d4))
+                viewState.subtitle?.let { Text(it, style = MaterialTheme.typography.headlineMedium) }
+                Spacer(Modifier.height(Grid.d2))
+                viewState.value?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
             }
         }
     }
@@ -97,11 +101,14 @@ object Detail {
 private fun DetailContentPreview() {
     Showcase {
         Detail.Content(
+            viewState = DetailViewState().apply {
+                title = "DetailScreen"
+                subtitle = "Subtitle"
+                value = "Value"
+            },
             actions = object : Detail.Actions {
                 override fun onNavigateBack() = Unit
-                override fun onIncrementCounter() = Unit
             },
-            counter = 5,
         )
     }
 }

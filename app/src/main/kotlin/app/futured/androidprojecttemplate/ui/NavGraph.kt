@@ -59,7 +59,7 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                     HomeScreen(navigation = backStackNavigator)
                 }
                 entry<MainRoute.Detail> {
-                    DetailScreen(navigation = backStackNavigator)
+                    DetailScreen(it.args, navigation = backStackNavigator)
                 }
             },
         )

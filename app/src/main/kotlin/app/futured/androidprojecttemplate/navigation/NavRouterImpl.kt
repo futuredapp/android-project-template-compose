@@ -2,6 +2,7 @@ package app.futured.androidprojecttemplate.navigation
 
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreenArgs
 
 /**
  * Class that triggers navigation actions on the provided [backStack].
@@ -13,15 +14,25 @@ class NavRouterImpl(private val backStack: NavBackStack<NavKey>, private val res
     }
 
     override fun navigateBack(popUpToDestination: MainRoute, inclusive: Boolean) {
-        backStack.removeLastOrNull()
+        while (backStack.isNotEmpty() && backStack.last() != popUpToDestination) {
+            backStack.removeLastOrNull()
+        }
+        if (inclusive) {
+            backStack.removeLastOrNull()
+        }
     }
 
     override fun navigateToHome() {
         backStack.add(MainRoute.Home)
     }
 
-    override fun navigateToDetail(title: String, subtitle: String?, value: String?) {
-        backStack.add(MainRoute.Detail(title = title, subtitle = subtitle, value = value))
+    override fun navigateToDetail(args: DetailScreenArgs) {
+        backStack.add(MainRoute.Detail(args))
+    }
+
+    override fun navigateToLogin() {
+        backStack.clear()
+        backStack.add(MainRoute.Login)
     }
 
     override fun <T : Any> navigateBackWithResult(key: String, value: T) {
