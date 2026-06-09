@@ -64,15 +64,6 @@ class ObserveSomethingUseCase @Inject constructor(...) : FlowUseCase<Unit, MyMod
 }
 ```
 
-### Calling use cases outside ViewModels
-
-`build(args)` is a plain `suspend fun` — call it directly from any coroutine context (e.g. `PagingSource.load()`, a coroutine builder):
-
-```kotlin
-// In PagingSource.load() or any suspend context
-val response = someUseCase.build(args)
-```
-
 ### `CoroutineScopeOwner` — use-case execution in ViewModels
 
 ```kotlin
@@ -148,24 +139,6 @@ Uses **Navigation 3** (`androidx.navigation3`), not standard Navigation Compose.
 
 ### API interface
 - `ApiService.kt` — suspend functions annotated with Ktorfit `@GET`/`@POST`/etc. The Ktorfit instance is built with `NetworkResultConverterFactory`, so functions may return either the model directly or `NetworkResult<T>`.
-
-### Ktor plugins (each in `data/remote/plugins/`, implementing the local `HttpClientPlugin` interface and installed in `NetworkModule`)
-| Plugin | Responsibility |
-|---|---|
-| `ContentNegotiationPlugin` | Kotlinx Serialization JSON; sets `Content-Type` header |
-| `LoggingPlugin` | `LogLevel.ALL` via Timber (`tag = "Ktor"`) |
-| `HttpTimeoutPlugin` | Connect 10 s, request 15 s, socket 10 s |
-| `UserAgentPlugin` | Custom UA with app version, application id, Android OS, device model, Ktor version |
-
-### Error handling
-`NetworkResult<T>` — `Success(data)` / `Failure(error: NetworkError)`; `getOrThrow()` rethrows the error.
-
-`NetworkError` subtypes: `HttpError(statusCode, message)`, `SerializationError`, `ConnectionError`, `UnknownError`. Mapped by `NetworkErrorParser` and the custom `NetworkResultConverterFactory`.
-
-### DI wiring
-`NetworkModule` provides `HttpClient` (Singleton, wired with all plugins), `Ktorfit`, and `ApiService`. Base URL comes from `Constants.Api.BASE_PROD_URL`.
-`ApplicationModule` provides the shared `Json` instance (lenient, `ignoreUnknownKeys = true`, contextual `ZonedDateTime` serializer).
-
 ## Dependency Injection
 
 **Hilt** throughout:
