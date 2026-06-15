@@ -5,8 +5,11 @@ package app.futured.androidprojecttemplate.ui.screens.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,6 +23,7 @@ import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.AddFloatingActionButton
 import app.futured.androidprojecttemplate.ui.components.Showcase
+import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
 
@@ -31,11 +35,10 @@ fun HomeScreen(
     with(viewModel) {
         EventsEffect {
             onEvent<NavigateToDetailEvent> {
-                navigation.navigateToDetail(
-                    title = "Demo",
-                    subtitle = "Subtitle",
-                    value = "Demo Subtitle",
-                )
+                navigation.navigateToDetail(it.args)
+            }
+            onEvent<NavigateToLoginEvent> {
+                navigation.navigateToLogin()
             }
         }
 
@@ -51,8 +54,8 @@ object Home {
     @Stable
     interface Actions {
         fun onNavigateToDetail()
-
         fun onIncrementCounter()
+        fun onLogout()
     }
 
     @Composable
@@ -83,6 +86,12 @@ object Home {
                     },
             ) {
                 Text(text = "Home: $counter")
+
+                Spacer(modifier = Modifier.height(Grid.d4))
+
+                Button(onClick = actions::onLogout) {
+                    Text(text = "Logout")
+                }
             }
         }
     }
@@ -96,6 +105,7 @@ private fun HomeContentPreview() {
             actions = object : Home.Actions {
                 override fun onNavigateToDetail() = Unit
                 override fun onIncrementCounter() = Unit
+                override fun onLogout() = Unit
             },
             counter = 5,
         )

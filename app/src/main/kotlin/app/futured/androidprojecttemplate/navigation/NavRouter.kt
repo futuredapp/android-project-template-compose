@@ -1,12 +1,17 @@
 package app.futured.androidprojecttemplate.navigation
 
+import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreenArgs
+
 interface NavRouter {
     fun popBackStack()
-    fun navigateBack(popUpToDestination: Destination, inclusive: Boolean = false)
+    fun navigateBack(popUpToDestination: MainRoute, inclusive: Boolean = false)
 
-    fun navigateToDetail(title: String, subtitle: String? = null, value: String? = null)
+    fun navigateToHome()
 
-    fun <T> navigateBackWithResult(key: String, value: T)
-    fun <T> setCurrentResult(key: String, value: T)
-    fun <T> subscribeForResult(key: String, callback: (T) -> Unit)
+    fun navigateToDetail(args: DetailScreenArgs)
+
+    fun navigateToLogin()
+
+    fun <T : Any> navigateBackWithResult(key: String, value: T)
+    fun <T : Any> setCurrentResult(key: String, value: T)
 }
