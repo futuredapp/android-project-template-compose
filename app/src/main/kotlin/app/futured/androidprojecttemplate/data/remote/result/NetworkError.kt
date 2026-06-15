@@ -16,7 +16,7 @@ sealed class NetworkError(message: String?, cause: Throwable?) : RuntimeExceptio
     }
 
     /**
-     * Represents an error that occurred while serializing the request or deserializing the response body.
+     * Represents an error that occurred while deserializing the response body.
      */
     class SerializationError(cause: Throwable?) : NetworkError(message = cause?.message, cause = cause)
 
