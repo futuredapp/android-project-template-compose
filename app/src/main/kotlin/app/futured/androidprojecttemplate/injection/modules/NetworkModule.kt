@@ -6,7 +6,7 @@ import app.futured.androidprojecttemplate.data.remote.plugins.ContentNegotiation
 import app.futured.androidprojecttemplate.data.remote.plugins.HttpTimeoutPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.LoggingPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.UserAgentPlugin
-import app.futured.androidprojecttemplate.data.remote.result.NetworkResultConverterFactory
+import app.futured.androidprojecttemplate.data.remote.result.ResultConverterFactory
 import app.futured.androidprojecttemplate.injection.qualifiers.ApiUrl
 import app.futured.androidprojecttemplate.tools.Constants.Api.BASE_PROD_URL
 import dagger.Module
@@ -46,11 +46,11 @@ class NetworkModule {
     fun provideKtorfit(
         @ApiUrl apiUrl: String,
         client: HttpClient,
-        networkResultConverterFactory: NetworkResultConverterFactory,
+        resultConverterFactory: ResultConverterFactory,
     ): Ktorfit = Ktorfit.Builder()
         .baseUrl(apiUrl)
         .httpClient(client)
-        .converterFactories(networkResultConverterFactory)
+        .converterFactories(resultConverterFactory)
         .build()
 
     @Provides

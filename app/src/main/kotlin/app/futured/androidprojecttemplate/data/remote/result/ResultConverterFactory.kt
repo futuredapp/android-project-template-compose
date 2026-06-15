@@ -13,36 +13,36 @@ import javax.inject.Singleton
 import kotlin.reflect.cast
 
 @Singleton
-class NetworkResultConverterFactory @Inject constructor(val errorParser: NetworkErrorParser) : Converter.Factory {
+class ResultConverterFactory @Inject constructor(val errorParser: NetworkErrorParser) : Converter.Factory {
 
     override fun suspendResponseConverter(
         typeData: TypeData,
         ktorfit: Ktorfit,
     ): Converter.SuspendResponseConverter<HttpResponse, *>? {
-        if (typeData.typeInfo.type != NetworkResult::class) return null
+        if (typeData.typeInfo.type != Result::class) return null
 
         return object : Converter.SuspendResponseConverter<HttpResponse, Any> {
 
             override suspend fun convert(result: KtorfitResult): Any {
-                val wrappedTypeInfo = typeData.typeArgs.first().typeInfo // NetworkResult<wrappedTypeInfo>
+                val wrappedTypeInfo = typeData.typeArgs.first().typeInfo // Result<wrappedTypeInfo>
 
                 return when (result) {
-                    is KtorfitResult.Success -> result.response.toNetworkResult(expectedType = wrappedTypeInfo)
-                    is KtorfitResult.Failure -> NetworkResult.error(errorParser.parse(result.throwable))
+                    is KtorfitResult.Success -> result.response.toResult(expectedType = wrappedTypeInfo)
+                    is KtorfitResult.Failure -> Result.failure(errorParser.parse(result.throwable))
                 }
             }
         }
     }
 
-    private suspend inline fun HttpResponse.toNetworkResult(expectedType: TypeInfo): NetworkResult<Any> {
+    private suspend inline fun HttpResponse.toResult(expectedType: TypeInfo): Result<Any> {
         if (!status.isSuccess()) {
-            return NetworkResult.error(errorParser.parse(status))
+            return Result.failure(errorParser.parse(status))
         }
 
         return runCatching {
-            NetworkResult.success(expectedType.type.cast(body(expectedType)))
+            Result.success(expectedType.type.cast(body(expectedType)))
         }.getOrElse { throwable ->
-            NetworkResult.error(errorParser.parse(throwable))
+            Result.failure(errorParser.parse(throwable))
         }
     }
 }
