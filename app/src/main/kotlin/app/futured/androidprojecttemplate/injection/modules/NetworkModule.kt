@@ -1,22 +1,21 @@
 package app.futured.androidprojecttemplate.injection.modules
 
-import app.futured.androidprojecttemplate.BuildConfig
 import app.futured.androidprojecttemplate.data.remote.ApiService
+import app.futured.androidprojecttemplate.data.remote.createApiService
+import app.futured.androidprojecttemplate.data.remote.plugins.ContentNegotiationPlugin
+import app.futured.androidprojecttemplate.data.remote.plugins.HttpTimeoutPlugin
+import app.futured.androidprojecttemplate.data.remote.plugins.LoggingPlugin
+import app.futured.androidprojecttemplate.data.remote.plugins.UserAgentPlugin
+import app.futured.androidprojecttemplate.data.remote.result.ResultConverterFactory
+import app.futured.androidprojecttemplate.injection.qualifiers.ApiUrl
 import app.futured.androidprojecttemplate.tools.Constants.Api.BASE_PROD_URL
-import app.futured.androidprojecttemplate.tools.Constants.Api.TIMEOUT_IN_SECONDS
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.json.Json
-import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
+import de.jensklingenberg.ktorfit.Ktorfit
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import javax.inject.Singleton
 
 @Module
@@ -25,35 +24,36 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): Interceptor =
-        HttpLoggingInterceptor { message ->
-            Timber.tag("OkHttp").d(message)
-        }.apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    @ApiUrl
+    internal fun apiUrl(): String = BASE_PROD_URL
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        loggingInterceptor: Interceptor,
-    ): OkHttpClient = OkHttpClient
-        .Builder()
-        .addInterceptor(loggingInterceptor)
-        .connectTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
-        .readTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
-        .writeTimeout(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+    fun provideHttpClient(
+        contentNegotiationPlugin: ContentNegotiationPlugin,
+        httpTimeoutPlugin: HttpTimeoutPlugin,
+        loggingPlugin: LoggingPlugin,
+        userAgentPlugin: UserAgentPlugin,
+    ): HttpClient = HttpClient(OkHttp) {
+        contentNegotiationPlugin.install(this)
+        httpTimeoutPlugin.install(this)
+        loggingPlugin.install(this)
+        userAgentPlugin.install(this)
+    }
+
+    @Provides
+    @Singleton
+    fun provideKtorfit(
+        @ApiUrl apiUrl: String,
+        client: HttpClient,
+        resultConverterFactory: ResultConverterFactory,
+    ): Ktorfit = Ktorfit.Builder()
+        .baseUrl(apiUrl)
+        .httpClient(client)
+        .converterFactories(resultConverterFactory)
         .build()
 
     @Provides
     @Singleton
-    fun provideRetrofitService(
-        okHttpClient: OkHttpClient,
-        json: Json,
-    ) = Retrofit.Builder()
-        .baseUrl(BASE_PROD_URL)
-        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-        .client(okHttpClient)
-        .validateEagerly(BuildConfig.DEBUG)
-        .build()
-        .create(ApiService::class.java)
+    fun provideApiService(ktorfit: Ktorfit): ApiService = ktorfit.createApiService()
 }
