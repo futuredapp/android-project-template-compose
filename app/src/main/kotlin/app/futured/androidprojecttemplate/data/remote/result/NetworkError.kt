@@ -15,6 +15,9 @@ sealed class NetworkError(message: String?, cause: Throwable?) : RuntimeExceptio
         internal constructor(statusCode: HttpStatusCode) : this(statusCode = statusCode.value, message = statusCode.description)
     }
 
+    /**
+     * Represents an error that occurred while serializing the request or deserializing the response body.
+     */
     class SerializationError(cause: Throwable?) : NetworkError(message = cause?.message, cause = cause)
 
     /**

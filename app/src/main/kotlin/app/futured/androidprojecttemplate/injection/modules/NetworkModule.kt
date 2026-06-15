@@ -15,7 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.okhttp.OkHttp
 import javax.inject.Singleton
 
 @Module
@@ -34,7 +34,7 @@ class NetworkModule {
         httpTimeoutPlugin: HttpTimeoutPlugin,
         loggingPlugin: LoggingPlugin,
         userAgentPlugin: UserAgentPlugin,
-    ): HttpClient = HttpClient(CIO) {
+    ): HttpClient = HttpClient(OkHttp) {
         contentNegotiationPlugin.install(this)
         httpTimeoutPlugin.install(this)
         loggingPlugin.install(this)
