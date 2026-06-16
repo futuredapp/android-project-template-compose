@@ -6,7 +6,7 @@ import app.futured.androidprojecttemplate.data.remote.plugins.ContentNegotiation
 import app.futured.androidprojecttemplate.data.remote.plugins.HttpTimeoutPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.LoggingPlugin
 import app.futured.androidprojecttemplate.data.remote.plugins.UserAgentPlugin
-import app.futured.androidprojecttemplate.data.remote.result.NetworkResultConverterFactory
+import app.futured.androidprojecttemplate.data.remote.result.ResultConverterFactory
 import app.futured.androidprojecttemplate.injection.qualifiers.ApiUrl
 import app.futured.androidprojecttemplate.tools.Constants.Api.BASE_PROD_URL
 import dagger.Module
@@ -15,7 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.okhttp.OkHttp
 import javax.inject.Singleton
 
 @Module
@@ -34,7 +34,7 @@ class NetworkModule {
         httpTimeoutPlugin: HttpTimeoutPlugin,
         loggingPlugin: LoggingPlugin,
         userAgentPlugin: UserAgentPlugin,
-    ): HttpClient = HttpClient(CIO) {
+    ): HttpClient = HttpClient(OkHttp) {
         contentNegotiationPlugin.install(this)
         httpTimeoutPlugin.install(this)
         loggingPlugin.install(this)
@@ -46,11 +46,11 @@ class NetworkModule {
     fun provideKtorfit(
         @ApiUrl apiUrl: String,
         client: HttpClient,
-        networkResultConverterFactory: NetworkResultConverterFactory,
+        resultConverterFactory: ResultConverterFactory,
     ): Ktorfit = Ktorfit.Builder()
         .baseUrl(apiUrl)
         .httpClient(client)
-        .converterFactories(networkResultConverterFactory)
+        .converterFactories(resultConverterFactory)
         .build()
 
     @Provides
