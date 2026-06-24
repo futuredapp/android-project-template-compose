@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package app.futured.androidprojecttemplate.ui.screens.login
+package app.futured.androidprojecttemplate.ui.screens.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -20,32 +21,30 @@ import app.futured.androidprojecttemplate.R
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.Spacer
-import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
 
 @Composable
-fun LoginScreen(
+fun ProfileScreen(
     navigation: NavRouter,
-    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateToFirstEvent> {
-                navigation.navigateToFirst()
+            onEvent<NavigateToLoginEvent> {
+                navigation.navigateToLogin()
             }
         }
 
-        Login.Content(this)
+        Profile.Content(this)
     }
 }
 
-object Login {
+object Profile {
 
     @Stable
     interface Actions {
-        fun onSignIn()
+        fun onSignOut()
     }
 
     @Composable
@@ -54,6 +53,7 @@ object Login {
         modifier: Modifier = Modifier,
     ) {
         Scaffold(
+            topBar = { TopAppBar(title = { Text(text = stringResource(R.string.profile_title)) }) },
             modifier = modifier,
         ) { contentPadding ->
             Column(
@@ -63,10 +63,8 @@ object Login {
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {
-                Text(text = stringResource(R.string.login_welcome))
-                Spacer(Grid.d4)
-                Button(onClick = actions::onSignIn) {
-                    Text(text = stringResource(R.string.login_sign_in))
+                Button(onClick = actions::onSignOut) {
+                    Text(text = stringResource(R.string.profile_sign_out))
                 }
             }
         }
@@ -75,12 +73,10 @@ object Login {
 
 @ScreenPreviews
 @Composable
-private fun LoginContentPreview() {
-    Showcase {
-        Login.Content(
-            actions = object : Login.Actions {
-                override fun onSignIn() = Unit
-            },
-        )
-    }
+private fun ProfileContentPreview() = Showcase {
+    Profile.Content(
+        actions = object : Profile.Actions {
+            override fun onSignOut() = Unit
+        },
+    )
 }

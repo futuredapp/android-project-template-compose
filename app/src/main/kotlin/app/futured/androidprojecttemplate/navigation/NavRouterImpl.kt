@@ -2,7 +2,8 @@ package app.futured.androidprojecttemplate.navigation
 
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import app.futured.androidprojecttemplate.ui.screens.detail.DetailScreenArgs
+import app.futured.androidprojecttemplate.ui.screens.picker.PickerScreenArgs
+import app.futured.androidprojecttemplate.ui.screens.third.ThirdScreenArgs
 
 /**
  * Class that triggers navigation actions on the provided [backStack].
@@ -22,17 +23,38 @@ class NavRouterImpl(private val backStack: NavBackStack<NavKey>, private val res
         }
     }
 
-    override fun navigateToHome() {
-        backStack.add(MainRoute.Home)
+    override fun navigateToFirst() {
+        backStack.clear()
+        backStack.add(MainRoute.First)
     }
 
-    override fun navigateToDetail(args: DetailScreenArgs) {
-        backStack.add(MainRoute.Detail(args))
+    override fun navigateToSecond() {
+        backStack.add(MainRoute.Second)
+    }
+
+    override fun navigateToThird(args: ThirdScreenArgs) {
+        backStack.add(MainRoute.Third(args))
+    }
+
+    override fun navigateToPicker(args: PickerScreenArgs) {
+        backStack.add(MainRoute.Picker(args))
     }
 
     override fun navigateToLogin() {
         backStack.clear()
         backStack.add(MainRoute.Login)
+    }
+
+    override fun selectHomeTab() {
+        while (backStack.isNotEmpty() && backStack.last() != MainRoute.First) {
+            backStack.removeLastOrNull()
+        }
+    }
+
+    override fun selectProfileTab() {
+        if (backStack.lastOrNull() != MainRoute.Profile) {
+            backStack.add(MainRoute.Profile)
+        }
     }
 
     override fun <T : Any> navigateBackWithResult(key: String, value: T) {

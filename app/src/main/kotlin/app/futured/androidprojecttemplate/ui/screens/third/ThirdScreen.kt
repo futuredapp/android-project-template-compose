@@ -1,15 +1,20 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package app.futured.androidprojecttemplate.ui.screens.login
+package app.futured.androidprojecttemplate.ui.screens.third
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -20,40 +25,52 @@ import app.futured.androidprojecttemplate.R
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.Spacer
-import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
 
 @Composable
-fun LoginScreen(
+fun ThirdScreen(
+    args: ThirdScreenArgs,
     navigation: NavRouter,
-    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: ThirdViewModel = hiltViewModel<ThirdViewModel, ThirdViewModel.Factory>(
+        creationCallback = { factory -> factory.create(args) },
+    ),
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateToFirstEvent> {
-                navigation.navigateToFirst()
+            onEvent<NavigateBackEvent> {
+                navigation.popBackStack()
             }
         }
 
-        Login.Content(this)
+        Third.Content(viewState, this)
     }
 }
 
-object Login {
+object Third {
 
     @Stable
     interface Actions {
-        fun onSignIn()
+        fun onNavigateBack()
     }
 
     @Composable
     fun Content(
+        viewState: ThirdViewState,
         actions: Actions,
         modifier: Modifier = Modifier,
     ) {
         Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = stringResource(R.string.third_title)) },
+                    navigationIcon = {
+                        IconButton(onClick = { actions.onNavigateBack() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "")
+                        }
+                    },
+                )
+            },
             modifier = modifier,
         ) { contentPadding ->
             Column(
@@ -63,11 +80,10 @@ object Login {
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {
-                Text(text = stringResource(R.string.login_welcome))
-                Spacer(Grid.d4)
-                Button(onClick = actions::onSignIn) {
-                    Text(text = stringResource(R.string.login_sign_in))
-                }
+                Text(
+                    text = stringResource(R.string.third_selected_item, viewState.item),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
             }
         }
     }
@@ -75,12 +91,11 @@ object Login {
 
 @ScreenPreviews
 @Composable
-private fun LoginContentPreview() {
-    Showcase {
-        Login.Content(
-            actions = object : Login.Actions {
-                override fun onSignIn() = Unit
-            },
-        )
-    }
+private fun ThirdContentPreview() = Showcase {
+    Third.Content(
+        viewState = ThirdViewState().apply { item = "🍎 Apple" },
+        actions = object : Third.Actions {
+            override fun onNavigateBack() = Unit
+        },
+    )
 }

@@ -23,8 +23,8 @@ class AppViewModel @Inject constructor(
     private fun getInitialDestination() {
         getInitialDestinationUseCase.execute {
             onSuccess { destination ->
-                if (destination == MainRoute.Home) {
-                    sendEvent(NavigateToHomeEvent)
+                if (destination == MainRoute.First) {
+                    sendEvent(NavigateToFirstEvent)
                 }
             }
         }
@@ -36,4 +36,4 @@ class AppViewState @Inject constructor() : ViewState
 
 sealed class AppEvent : Event<AppViewState>()
 
-data object NavigateToHomeEvent : AppEvent()
+data object NavigateToFirstEvent : AppEvent()
