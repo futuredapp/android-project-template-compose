@@ -3,8 +3,11 @@
 package app.futured.androidprojecttemplate.ui
 
 import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -23,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.MetadataScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.metadata
@@ -101,8 +105,7 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                     }
                     entry<MainRoute.First>(
                         metadata = metadata {
-                            put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
-                            put(NavDisplay.PopTransitionKey) { fadeIn() togetherWith fadeOut() }
+                            fadeTransition()
                         },
                     ) {
                         FirstScreen(navigation = backStackNavigator)
@@ -115,8 +118,7 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                     }
                     entry<MainRoute.Profile>(
                         metadata = metadata {
-                            put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
-                            put(NavDisplay.PopTransitionKey) { fadeIn() togetherWith fadeOut() }
+                            fadeTransition()
                         },
                     ) {
                         ProfileScreen(navigation = backStackNavigator)
@@ -132,6 +134,15 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
 
 val LocalResultStore = compositionLocalOf<ResultStore?> {
     null
+}
+
+/**
+ * Fade transition, mainly used for switching between tabs
+ */
+private fun MetadataScope.fadeTransition() {
+    put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
+    put(NavDisplay.PopTransitionKey) { fadeIn() togetherWith fadeOut() }
+    put(NavDisplay.PredictivePopTransitionKey) { fadeIn() togetherWith fadeOut() }
 }
 
 /**
@@ -154,5 +165,14 @@ private fun popTransition(): ContentTransform =
  * Same motion as popTransition, used while the user is driving the back gesture (predictive back).
  */
 private fun predictivePopTransition(): ContentTransform =
-    slideInHorizontally(initialOffsetX = { -it / 3 }) + fadeIn() togetherWith
-        slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
+    // The incoming parent screen subtly scales up and slides in from the left
+    scaleIn(
+        initialScale = 0.95f,
+        animationSpec = tween(300),
+    ) + slideInHorizontally(initialOffsetX = { -it / 4 }) + fadeIn() togetherWith
+
+        // The current screen shrinks slightly into a card-like shape and slides right
+        scaleOut(
+            targetScale = 0.95f,
+            animationSpec = tween(300),
+        ) + slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
