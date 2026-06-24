@@ -2,6 +2,12 @@
 
 package app.futured.androidprojecttemplate.ui
 
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.padding
@@ -19,6 +25,7 @@ import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.metadata
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -80,6 +87,9 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                 modifier = Modifier.padding(contentPadding),
                 backStack = backStack,
                 onBack = dropUnlessResumed { backStackNavigator.popBackStack() },
+                transitionSpec = { forwardTransition() },
+                popTransitionSpec = { popTransition() },
+                predictivePopTransitionSpec = { predictivePopTransition() },
                 entryDecorators = listOf(
                     rememberSaveableStateHolderNavEntryDecorator(),
                     rememberViewModelStoreNavEntryDecorator(),
@@ -89,7 +99,12 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                     entry<MainRoute.Login> {
                         LoginScreen(navigation = backStackNavigator)
                     }
-                    entry<MainRoute.First> {
+                    entry<MainRoute.First>(
+                        metadata = metadata {
+                            put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
+                            put(NavDisplay.PopTransitionKey) { fadeIn() togetherWith fadeOut() }
+                        },
+                    ) {
                         FirstScreen(navigation = backStackNavigator)
                     }
                     entry<MainRoute.Second> {
@@ -98,7 +113,12 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
                     entry<MainRoute.Third> {
                         ThirdScreen(it.args, navigation = backStackNavigator)
                     }
-                    entry<MainRoute.Profile> {
+                    entry<MainRoute.Profile>(
+                        metadata = metadata {
+                            put(NavDisplay.TransitionKey) { fadeIn() togetherWith fadeOut() }
+                            put(NavDisplay.PopTransitionKey) { fadeIn() togetherWith fadeOut() }
+                        },
+                    ) {
                         ProfileScreen(navigation = backStackNavigator)
                     }
                     entry<MainRoute.Picker>(metadata = BottomSheetSceneStrategy.bottomSheet()) {
@@ -113,3 +133,26 @@ fun NavGraph(modifier: Modifier = Modifier, appViewModel: AppViewModel = hiltVie
 val LocalResultStore = compositionLocalOf<ResultStore?> {
     null
 }
+
+/**
+ * Incoming screen slides in from the right edge while fading in
+ * outgoing screen slides one-third to the left while fading out.
+ */
+private fun forwardTransition(): ContentTransform =
+    slideInHorizontally(initialOffsetX = { it }) + fadeIn() togetherWith
+        slideOutHorizontally(targetOffsetX = { -it / 3 }) + fadeOut()
+
+/**
+ * Reverse of the forward transition: incoming screen slides in from one-third left while fading in
+ * outgoing slides off to the right while fading out.
+ */
+private fun popTransition(): ContentTransform =
+    slideInHorizontally(initialOffsetX = { -it / 3 }) + fadeIn() togetherWith
+        slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
+
+/**
+ * Same motion as popTransition, used while the user is driving the back gesture (predictive back).
+ */
+private fun predictivePopTransition(): ContentTransform =
+    slideInHorizontally(initialOffsetX = { -it / 3 }) + fadeIn() togetherWith
+        slideOutHorizontally(targetOffsetX = { it }) + fadeOut()

@@ -13,10 +13,10 @@ import androidx.compose.ui.unit.Dp
  * Renders a spacer in Column-based layouts.
  */
 @Composable
-fun ColumnScope.VerticalSpacer(size: Dp, modifier: Modifier = Modifier) = Spacer(modifier = modifier.height(size))
+fun ColumnScope.Spacer(size: Dp, modifier: Modifier = Modifier) = Spacer(modifier = modifier.height(size))
 
 /**
  * Renders a spacer in Row-based layouts.
  */
 @Composable
-fun RowScope.HorizontalSpacer(size: Dp, modifier: Modifier = Modifier) = Spacer(modifier = modifier.width(size))
+fun RowScope.Spacer(size: Dp, modifier: Modifier = Modifier) = Spacer(modifier = modifier.width(size))

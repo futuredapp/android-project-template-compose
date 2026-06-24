@@ -20,7 +20,7 @@ import app.futured.androidprojecttemplate.R
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.VerticalSpacer
+import app.futured.androidprojecttemplate.ui.components.layout.Spacer
 import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
@@ -64,7 +64,7 @@ object Login {
                     .padding(contentPadding),
             ) {
                 Text(text = stringResource(R.string.login_welcome))
-                VerticalSpacer(Grid.d4)
+                Spacer(Grid.d4)
                 Button(onClick = actions::onSignIn) {
                     Text(text = stringResource(R.string.login_sign_in))
                 }

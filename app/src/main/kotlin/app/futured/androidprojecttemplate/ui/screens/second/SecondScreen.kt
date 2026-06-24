@@ -27,7 +27,7 @@ import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.LocalResultStore
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.VerticalSpacer
+import app.futured.androidprojecttemplate.ui.components.layout.Spacer
 import app.futured.androidprojecttemplate.ui.screens.picker.PICKED_ITEM_KEY
 import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
@@ -103,7 +103,7 @@ object Second {
                 Button(onClick = actions::onPickFruit) {
                     Text(text = stringResource(R.string.second_pick_fruit))
                 }
-                VerticalSpacer(Grid.d2)
+                Spacer(Grid.d2)
                 Button(onClick = actions::onPickVeggie) {
                     Text(text = stringResource(R.string.second_pick_veggie))
                 }

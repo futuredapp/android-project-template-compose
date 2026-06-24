@@ -27,7 +27,7 @@ import app.futured.androidprojecttemplate.R
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.VerticalSpacer
+import app.futured.androidprojecttemplate.ui.components.layout.Spacer
 import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
@@ -87,7 +87,7 @@ object First {
                 AnimatedVisibility(viewState.randomPerson != null) {
                     viewState.randomPerson?.let { person ->
                         Column {
-                            VerticalSpacer(Grid.d1)
+                            Spacer(Grid.d1)
                             Text(
                                 text = stringResource(R.string.first_random_person, person),
                                 modifier = Modifier.fillMaxWidth(),
@@ -96,7 +96,7 @@ object First {
                         }
                     }
                 }
-                VerticalSpacer(Grid.d4)
+                Spacer(Grid.d4)
                 Button(onClick = actions::onContinue) {
                     Text(text = stringResource(R.string.first_continue))
                 }

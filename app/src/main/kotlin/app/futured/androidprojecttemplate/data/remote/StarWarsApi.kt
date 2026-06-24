@@ -1,6 +1,5 @@
 package app.futured.androidprojecttemplate.data.remote
 
-import app.futured.androidprojecttemplate.data.remote.result.NetworkResult
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Path
 import kotlinx.serialization.SerialName
@@ -11,7 +10,7 @@ interface StarWarsApi {
     @GET("people/{id}")
     suspend fun getPerson(
         @Path("id") personId: Int,
-    ): NetworkResult<Person>
+    ): Result<Person>
 
     @Serializable
     data class Person(

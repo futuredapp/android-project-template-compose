@@ -19,7 +19,7 @@ import app.futured.androidprojecttemplate.R
 import app.futured.androidprojecttemplate.navigation.NavRouter
 import app.futured.androidprojecttemplate.tools.compose.ScreenPreviews
 import app.futured.androidprojecttemplate.ui.components.Showcase
-import app.futured.androidprojecttemplate.ui.components.layout.VerticalSpacer
+import app.futured.androidprojecttemplate.ui.components.layout.Spacer
 import app.futured.androidprojecttemplate.ui.theme.Grid
 import app.futured.arkitekt.compose.EventsEffect
 import app.futured.arkitekt.compose.onEvent
@@ -63,7 +63,7 @@ object Picker {
                 .fillMaxWidth(),
         ) {
             Text(text = stringResource(R.string.picker_title), style = MaterialTheme.typography.titleLarge)
-            VerticalSpacer(Grid.d2)
+            Spacer(Grid.d2)
             viewState.items.forEach { itemRes ->
                 val label = stringResource(itemRes)
                 ListItem(
