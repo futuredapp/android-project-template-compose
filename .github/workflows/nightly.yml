@@ -34,7 +34,7 @@ jobs:
           echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
   android_nightly:
     needs: generate_version
-    uses: futuredapp/.github/.github/workflows/android-cloud-nightly-build.yml@2.0.0
+    uses: futuredapp/.github/.github/workflows/android-cloud-nightly-build.yml@2.4.6
     with:
       TEST_GRADLE_TASKS: testDevDebugUnitTest
       PACKAGE_GRADLE_TASK: packageDevEnterpriseUniversalApk
