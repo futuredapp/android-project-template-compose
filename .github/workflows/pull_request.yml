@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   check:
-    uses: futuredapp/.github/.github/workflows/android-cloud-check.yml@2.0.0
+    uses: futuredapp/.github/.github/workflows/android-cloud-check.yml@2.4.6
     with:
       LINT_GRADLE_TASKS: lintCheck
       TEST_GRADLE_TASKS: testDevDebugUnitTest
