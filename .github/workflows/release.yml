@@ -11,7 +11,7 @@ concurrency:
 jobs:
   deploy_release:
     name: Deploy release build
-    uses: futuredapp/.github/.github/workflows/android-cloud-release-googlePlay.yml@2.0.0
+    uses: futuredapp/.github/.github/workflows/android-cloud-release-googlePlay.yml@2.4.6
     with:
       VERSION_NAME: ${{ github.event.release.tag_name }}
       BUNDLE_GRADLE_TASK: bundleProdRelease
